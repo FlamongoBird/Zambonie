@@ -2,7 +2,6 @@ import "../terminal/terminal"
 import sequtils
 import std/strformat
 
-
 proc generateDungeon*(width, height: int): seq[seq[int]] =
     var dungeon_map = newSeqWith(height, newSeq[int](width))
     for y, row in dungeon_map:
@@ -21,8 +20,10 @@ proc colorString(str: string, fg: array[3, int], bg: array[3, int]): string =
 
 
 
-proc printDungeonMap*(dungeon_map: seq[seq[int]]) =
+proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
     var final = newSeq[string](0) 
+    final.add(stats)
+    final.add(" ")
     for row in dungeon_map:
         var line = ""
         for item in row:
