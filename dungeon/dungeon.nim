@@ -25,7 +25,9 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]]) =
                 of 0:
                     output = "   " 
                 of 1:
-                    output = "███"
+                    output = "###"
+                of 69:
+                    output = " X "
                 else:
                     output = " . "
             line = line & output
