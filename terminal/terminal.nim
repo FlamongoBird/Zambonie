@@ -2,6 +2,7 @@ import std/terminal
 import std/re
 import math
 
+
 proc stringLength(str: string): int =
     #[ counts the characters in a string without counting 
     the ansi escape codes ]#
@@ -30,3 +31,14 @@ proc display*(message: seq[string]) =
     for index, line in message:
         setCursorPos(x, (y+index))
         echo line
+
+
+proc moveOn*()=
+    setCursorPos(5, terminalHeight()-1)
+    echo "Press Space to Continue"
+    while true:
+        var key = getch()
+        if key == ' ':
+            break
+    
+    eraseScreen()

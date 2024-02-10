@@ -1,7 +1,8 @@
 import dungeon/dungeon
 import std/terminal
 import player/player
-import game/die
+import game/[die, title, treasure]
+
 
 #var message = @["Hello Jonathan!", "How's it going"]
 #display(message)
@@ -9,6 +10,8 @@ import game/die
 # Does some stuff before the start of the game
 echo "\x1b[?25l"
 eraseScreen()
+
+showTitle()
 
 var
     dungeon_map = generateDungeon(10, 10)
@@ -37,7 +40,10 @@ while true:
         of 'l':
             temp_x = 1
         of 't':
-            hurtPlayer(player_data)
+            #hurtPlayer(player_data)
+            spawnItem(5, dungeon_map)
+        of '1':
+            showPlayerInventory(player_data)
         else:
             # TODO: actually do something here
             continue
@@ -48,6 +54,10 @@ while true:
         of 0:
             x += temp_x
             y += temp_y
+        of 5:
+            var treasure = openTreasure()
+            givePlayerTreasure(player_data, treasure)
+
         else:
             continue
 

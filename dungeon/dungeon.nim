@@ -1,6 +1,9 @@
 import "../terminal/terminal"
 import sequtils
 import std/strformat
+import std/random
+
+randomize()
 
 proc generateDungeon*(width, height: int): seq[seq[int]] =
     var dungeon_map = newSeqWith(height, newSeq[int](width))
@@ -13,6 +16,19 @@ proc generateDungeon*(width, height: int): seq[seq[int]] =
                 dungeon_map[y][x] = 1
             
     return dungeon_map
+
+
+proc spawnItem*(item:int, dungeon: var seq[seq[int]]) =
+    while true:
+        var y = rand(dungeon.len-2) + 1
+        if count(dungeon[y], 0) > 0:
+            while true:
+                var x = rand(dungeon[y].len-2) + 1
+                if dungeon[y][x] == 0:
+                    dungeon[y][x] = item
+                    break
+            break
+
 
 
 proc colorString(str: string, fg: array[3, int], bg: array[3, int]): string =
