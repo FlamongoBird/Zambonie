@@ -79,7 +79,7 @@ proc centerStrings(strings: seq[string], width: int): seq[string] =
 
 
 proc moveOn*()=
-    setCursorPos(5, terminalHeight()-1)
+    setCursorPos(5, terminalHeight()-3)
     echo "Press Space to Continue"
     while true:
         var key = getch()
