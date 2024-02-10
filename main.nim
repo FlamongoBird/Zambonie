@@ -1,1 +1,4 @@
-echo "Hello, World!"
+import terminal/terminal
+
+
+display("Hello, World!")
