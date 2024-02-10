@@ -42,7 +42,8 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            spawnItem(5, dungeon_map)
+            #spawnItem(5, dungeon_map)
+            log.add("Hello, World!")
         of '1':
             showPlayerInventory(player_data)
         else:

@@ -1,7 +1,5 @@
 import "../terminal/terminal"
-import "../player/player"
 import std/random
-import std/terminal
 import std/strformat
 import std/tables
 
