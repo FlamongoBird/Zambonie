@@ -3,7 +3,7 @@ import std/terminal
 import player/player
 import game/[die, title, treasure]
 
-
+#[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
 #display(message)
 
