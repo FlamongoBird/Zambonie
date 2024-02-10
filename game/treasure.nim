@@ -16,9 +16,7 @@ proc openTreasure*(): int =
 
     var name = treasure_values[treasure]
 
-    var message = @[&"You found {name}"]
-
-    display(message)
+    popup(&"You found {name}")
     moveOn()
 
     return treasure

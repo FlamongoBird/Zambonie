@@ -20,6 +20,8 @@ var
     y = 5
     player_data = newPlayer()
 
+spawnItem(5, dungeon_map)
+
 while true:
     dungeon_map[y][x] = 69
     printDungeonMap(dungeon_map, playerStats(player_data))
@@ -42,7 +44,6 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            #spawnItem(5, dungeon_map)
             popup("Hello, World!")
             moveOn()
         of '1':

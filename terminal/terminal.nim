@@ -60,7 +60,7 @@ proc popup*(message: string) =
     for x in message:
         stdout.write(x)
         stdout.flushFile()
-        sleep(100)
+        sleep(25)
 
 
 
