@@ -50,7 +50,10 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                 of 1:
                     output = colorString("   ", [0, 0, 0], [50, 50, 50])
                 of 69:
-                    output = colorString(" X ", [255, 255, 255], [100, 100, 100])
+                    output = " X "
+                of 5:
+                    # treasure
+                    output = colorString("[T]", [255, 215, 0], [0,0,0])
                 else:
                     output = " . "
             line = line & output

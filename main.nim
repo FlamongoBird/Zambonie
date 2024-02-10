@@ -50,16 +50,22 @@ while true:
     
     var spot = dungeon_map[temp_y+y][temp_x+x]
 
+    var cont = false
+
     case spot:
         of 0:
-            x += temp_x
-            y += temp_y
+            cont = true
         of 5:
             var treasure = openTreasure()
             givePlayerTreasure(player_data, treasure)
-
+            cont = true
         else:
-            continue
+            cont = false
+
+    if cont:
+        x += temp_x
+        y += temp_y
+
 
     if playerDead(player_data):
         die()
