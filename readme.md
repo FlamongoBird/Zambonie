@@ -4,7 +4,9 @@ Birds are fake.
 
 ### Compile and Run
 
-`nim c main.nim && ./main`
+`nim c main.nim`
+
+`./main`
 
 ### or:
 
