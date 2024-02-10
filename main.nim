@@ -1,4 +1,4 @@
 import terminal/terminal
 
-
-display("Hello, World!")
+var message = @["Hello Jonathan!", "How's it going"]
+display(message)
