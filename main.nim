@@ -18,10 +18,11 @@ var
     x = 5
     y = 5
     player_data = newPlayer()
+    log = newSeq[string]()
 
 while true:
     dungeon_map[y][x] = 69
-    printDungeonMap(dungeon_map, playerStats(player_data))
+    printDungeonMap(dungeon_map, playerStats(player_data), log)
     dungeon_map[y][x] = 0
     var keypress = getch()
 

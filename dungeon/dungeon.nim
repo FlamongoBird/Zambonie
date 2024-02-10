@@ -36,7 +36,7 @@ proc colorString(str: string, fg: array[3, int], bg: array[3, int]): string =
 
 
 
-proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
+proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string, log: seq[string]) =
     var final = newSeq[string](0) 
     final.add(stats)
     final.add(" ")
@@ -58,4 +58,4 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                     output = " . "
             line = line & output
         final.add(line)
-    display(final) 
+    gameScreenDisplay(final, log)

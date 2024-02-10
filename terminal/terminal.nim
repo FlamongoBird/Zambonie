@@ -1,5 +1,6 @@
 import std/terminal
 import std/re
+import strutils
 import math
 
 
@@ -32,6 +33,43 @@ proc display*(message: seq[string]) =
         setCursorPos(x, (y+index))
         echo line
 
+
+
+proc centerString(str: string, width: int): string =
+    if str.len >= width:
+        return str
+
+    var spacing = width - str.len
+
+    var right_side = floorDiv(spacing, 2)
+    var left_side = spacing - right_side
+
+    return repeat(" ", right_side) & str & repeat(" ", left_side)
+
+
+proc centerStrings(strings: seq[string], width: int): seq[string] =
+    var output = newSeq[string](0)
+
+    for str in strings:
+        output.add(centerString(str, width))
+    
+    return output
+
+
+proc gameScreenDisplay*(dungeon: seq[string], log: seq[string]) =
+    #[ Displays the game dungeon on one side and log on the other ]#
+    var dungeon_balanced = centerStrings(dungeon, 50)
+    var log_balanced = centerStrings(log, 30)
+
+    var together = newSeq[string](0)
+
+    for index, item in dungeon_balanced:
+        var log_item = ""
+        if index < log_balanced.len:
+            log_item = log_balanced[index]
+        together.add(item & log_item)
+    
+    display(together)
 
 proc moveOn*()=
     setCursorPos(5, terminalHeight()-1)
