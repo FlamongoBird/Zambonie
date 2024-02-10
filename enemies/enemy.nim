@@ -6,3 +6,11 @@ type Enemy* = object
     armor: Armor
 
 
+proc generateGoblin(): Enemy =
+    return Enemy(
+        hp: 15,
+        weapon: getWeapon("sword"),
+        armor: getArmor("leather")
+    )
+
+
