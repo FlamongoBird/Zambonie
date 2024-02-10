@@ -3,6 +3,7 @@ import std/terminal
 import player/player
 import game/[die, title, treasure]
 import terminal/terminal
+import enemies/enemy
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -44,8 +45,9 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            popup("Hello, World!")
-            moveOn()
+            var enemy = generateGoblin()
+            spawnItem(enemySymbol(enemy), dungeon_map)
+
         of '1':
             showPlayerInventory(player_data)
         else:
@@ -63,8 +65,10 @@ while true:
             var treasure = openTreasure()
             givePlayerTreasure(player_data, treasure)
             cont = true
+        of 11:
+            cont = true
         else:
-            cont = false
+            discard
 
     if cont:
         x += temp_x

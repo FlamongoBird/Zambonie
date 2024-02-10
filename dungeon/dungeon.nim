@@ -45,15 +45,20 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
         for item in row:
             var output: string
             case item:
+                # 0-10 are map blocks
                 of 0:
                     output = "   " 
                 of 1:
                     output = colorString("   ", [0, 0, 0], [50, 50, 50])
-                of 69:
-                    output = " X "
                 of 5:
                     # treasure
                     output = colorString("[T]", [255, 215, 0], [0,0,0])
+                # 69 is player cause
+                of 69:
+                    output = " X "
+                # 11-20 are monsters
+                of 11:
+                    output = " G "
                 else:
                     output = " . "
             line = line & output

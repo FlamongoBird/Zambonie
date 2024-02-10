@@ -13,5 +13,5 @@ let armors = {
 
 
 
-proc getArmor(name: string): Armor =
+proc getArmor*(name: string): Armor =
     return armors[name]
