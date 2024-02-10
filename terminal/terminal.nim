@@ -37,7 +37,7 @@ proc display*(message: seq[string]) =
 proc popup*(message: string) =
     let term_size = terminalSize()
 
-    var x = floorDiv(term_size.w, 2) - floorDiv(message.len, 2)
+    var x = floorDiv(term_size.w, 2) - floorDiv(stringLength(message)+4, 2)
     var y = floorDiv(term_size.h, 2) - 1
 
     setCursorPos(x, y)
