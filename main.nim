@@ -2,6 +2,7 @@ import dungeon/dungeon
 import std/terminal
 import player/player
 import game/[die, title, treasure]
+import terminal/terminal
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -41,7 +42,9 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            spawnItem(5, dungeon_map)
+            #spawnItem(5, dungeon_map)
+            popup("Hello, World!")
+            moveOn()
         of '1':
             showPlayerInventory(player_data)
         else:

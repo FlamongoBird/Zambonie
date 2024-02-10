@@ -28,10 +28,31 @@ proc display*(message: seq[string]) =
     var x = floorDiv(term_size.w, 2) - floorDiv(longestString(message), 2)
     var y = floorDiv(term_size.h, 2) - floorDiv(message.len, 2)
 
-
     for index, line in message:
         setCursorPos(x, (y+index))
         echo line
+
+
+proc popup*(message: string) =
+    let term_size = terminalSize()
+
+    var x = floorDiv(term_size.w, 2) - floorDiv(message.len, 2)
+    var y = floorDiv(term_size.h, 2) - 1
+
+    setCursorPos(x, y)
+
+    echo "╔" & repeat("═", message.len+2) & "╗"
+
+    setCursorPos(x, y+1)
+
+    echo "║ " & message & " ║"
+
+    setCursorPos(x, y+2)
+
+    echo "╚" & repeat("═", message.len+2) & "╝"
+
+
+
 
 
 
