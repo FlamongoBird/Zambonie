@@ -18,11 +18,10 @@ var
     x = 5
     y = 5
     player_data = newPlayer()
-    log = newSeq[string]()
 
 while true:
     dungeon_map[y][x] = 69
-    printDungeonMap(dungeon_map, playerStats(player_data), log)
+    printDungeonMap(dungeon_map, playerStats(player_data))
     dungeon_map[y][x] = 0
     var keypress = getch()
 
@@ -42,8 +41,7 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            #spawnItem(5, dungeon_map)
-            log.add("Hello, World!")
+            spawnItem(5, dungeon_map)
         of '1':
             showPlayerInventory(player_data)
         else:

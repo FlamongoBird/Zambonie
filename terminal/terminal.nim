@@ -56,20 +56,6 @@ proc centerStrings(strings: seq[string], width: int): seq[string] =
     return output
 
 
-proc gameScreenDisplay*(dungeon: seq[string], log: seq[string]) =
-    #[ Displays the game dungeon on one side and log on the other ]#
-    var dungeon_balanced = centerStrings(dungeon, 50)
-    var log_balanced = centerStrings(log, 30)
-
-    var together = newSeq[string](0)
-
-    for index, item in dungeon_balanced:
-        var log_item = ""
-        if index < log_balanced.len:
-            log_item = log_balanced[index]
-        together.add(item & log_item)
-    
-    display(together)
 
 proc moveOn*()=
     setCursorPos(5, terminalHeight()-1)
