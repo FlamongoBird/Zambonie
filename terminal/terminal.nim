@@ -2,6 +2,7 @@ import std/terminal
 import std/re
 import strutils
 import math
+import os
 
 
 proc stringLength(str: string): int =
@@ -37,20 +38,29 @@ proc display*(message: seq[string]) =
 proc popup*(message: string) =
     let term_size = terminalSize()
 
-    var x = floorDiv(term_size.w, 2) - floorDiv(stringLength(message)+4, 2)
+    let message_len = stringLength(message)
+
+    var x = floorDiv(term_size.w, 2) - floorDiv(message_len+4, 2)
     var y = floorDiv(term_size.h, 2) - 1
 
     setCursorPos(x, y)
 
-    echo "╔" & repeat("═", message.len+2) & "╗"
+    echo "╔" & repeat("═", message_len+2) & "╗"
 
     setCursorPos(x, y+1)
 
-    echo "║ " & message & " ║"
+    echo "║ " & repeat(" ", message_len) & " ║"
 
     setCursorPos(x, y+2)
 
-    echo "╚" & repeat("═", message.len+2) & "╝"
+    echo "╚" & repeat("═", message_len+2) & "╝"
+
+    setCursorPos(x+2, y+1)
+
+    for x in message:
+        stdout.write(x)
+        stdout.flushFile()
+        sleep(100)
 
 
 
