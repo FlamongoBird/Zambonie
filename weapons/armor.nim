@@ -6,7 +6,7 @@ type Armor* = object
 
 let armors = {
     "leather" : Armor(
-        deflect: 90,
+        deflect: 5,
         armor: 1
     )
 }.toTable
