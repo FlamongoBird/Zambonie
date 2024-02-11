@@ -3,23 +3,28 @@ import std/terminal
 import player/player
 import game/[die, title, treasure]
 import terminal/terminal
-import enemies/enemy
+import enemies/[enemy, enemy_movement]
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
 #display(message)
 
 # Does some stuff before the start of the game
-echo "\x1b[?25l"
-eraseScreen()
+#echo "\x1b[?25l"
+#eraseScreen()
 
-showTitle()
+#showTitle()
 
 var
     dungeon_map = generateDungeon(10, 10)
     x = 5
     y = 5
     player_data = newPlayer()
+
+
+findPathGreedy(dungeon_map, (0, 0), (x, y))
+
+quit()
 
 spawnItem(5, dungeon_map)
 
