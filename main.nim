@@ -20,6 +20,7 @@ var
     x = 5
     y = 5
     player_data = newPlayer()
+    enemy1 = generateGoblin(dungeon_map)
 
 
 
@@ -47,10 +48,14 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            var enemy = generateGoblin(dungeon_map)
-            var path = findPathGreedy(dungeon_map, enemyLoc(enemy), (x, y))
-            for loc in path:
-                dungeon_map[loc[1]][loc[0]] = 2
+            var path = findPathGreedy(dungeon_map, enemyLoc(enemy1), (x, y))
+            var loc = enemyLoc(enemy1)
+            dungeon_map[loc[1]][loc[0]] = enemySymbol(enemy1)
+            moveEnemy(path[^1], enemy1)
+            loc = enemyLoc(enemy1)
+            dungeon_map[loc[1]][loc[0]] = enemySymbol(enemy1)
+            #for loc in path:
+            #    dungeon_map[loc[1]][loc[0]] = 2
 
 
         of '1':
