@@ -1,8 +1,8 @@
 import std/tables
 
 type Weapon* = object
-    dmg_min: int
-    dmg_max: int
+    dmg_min*: int
+    dmg_max*: int
 
 let weapons = {
     "sword" : Weapon(

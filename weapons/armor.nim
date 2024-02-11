@@ -1,8 +1,8 @@
 import std/tables
 
 type Armor* = object
-    deflect: float
-    armor: int
+    deflect*: float
+    armor*: int
 
 let armors = {
     "leather" : Armor(

@@ -2,18 +2,24 @@ import std/strformat
 import "../util_functions/util_functions"
 import "../terminal/terminal"
 import "../game/treasure"
+import "../weapons/weapons"
+import "../weapons/armor"
 
 type
     Player* = object
         hp: int
         hp_max: int
         inventory: seq[int]
+        armor*: Armor
+        weapon*: Weapon
 
 proc newPlayer*(): Player =
     var p = Player(
         hp: 20,
         hp_max: 20,
-        inventory: newSeq[int](0)
+        inventory: newSeq[int](0),
+        armor: getArmor("leather"),
+        weapon: getWeapon("sword"),
     )
     return p
 
@@ -30,8 +36,8 @@ proc showPlayerInventory*(player: Player) =
 proc givePlayerTreasure*(player: var Player, treasure: int) =
     player.inventory.add(treasure)
 
-proc hurtPlayer*(player: var Player) =
-    player.hp -= 1
+proc hurtPlayer*(player: var Player, dmg: int) =
+    player.hp -= dmg
 
 proc playerDead*(player: Player): bool = 
     if player.hp <= 0:

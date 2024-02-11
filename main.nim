@@ -92,6 +92,8 @@ while true:
         if enemyInRange(e, x, y):
             var path = findPathGreedy(dungeon_map, enemyLoc(e), (x, y))
             moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
+        elif enemyInAttackRange(e, x, y):
+            enemyAttack(enemies[i], player_data)
 
     if playerDead(player_data):
         die()
