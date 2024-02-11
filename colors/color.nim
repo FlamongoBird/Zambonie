@@ -1,5 +1,4 @@
 import std/strformat
-import "../colors/colors"
 
 proc color*(color: array[3, int]): string =
     return &"\x1b[38;2;{color[0]};{color[1]};{color[2]}m"
