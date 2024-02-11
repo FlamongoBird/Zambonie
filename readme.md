@@ -4,12 +4,8 @@ Birds are fake.
 
 ### Compile and Run
 
-`nim c main.nim`
+`chmod 775 run.sh`
 
-then 
+then
 
-`./main` (cool os's) or `main.exe` (windows)
-
-or just 
-
-`nim c -r main.nim`
+`./run.sh`
