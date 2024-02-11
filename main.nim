@@ -50,7 +50,7 @@ while true:
             var enemy = generateGoblin(dungeon_map)
             var path = findPathGreedy(dungeon_map, enemyLoc(enemy), (x, y))
             for loc in path:
-                dungeon_map[loc[0]][loc[1]] = 2
+                dungeon_map[loc[1]][loc[0]] = 2
 
 
         of '1':

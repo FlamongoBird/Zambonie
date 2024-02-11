@@ -11,12 +11,10 @@ type Enemy* = object
     y: int
 
 proc enemyLoc*(enemy: Enemy): (int, int) =
-    echo (enemy.x, enemy.y)
     return (enemy.x, enemy.y)
 
 proc generateGoblin*(dungeon: var seq[seq[int]]): Enemy =
     var loc = spawnItem(11, dungeon)
-    echo loc
     return Enemy(
         hp: 15,
         weapon: getWeapon("sword"),
