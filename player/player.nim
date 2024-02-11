@@ -4,6 +4,10 @@ import "../terminal/terminal"
 import "../game/treasure"
 import "../weapons/weapons"
 import "../weapons/armor"
+import random
+
+
+randomize()
 
 type
     Player* = object
@@ -22,6 +26,12 @@ proc newPlayer*(): Player =
         weapon: getWeapon("sword"),
     )
     return p
+
+proc playerDeflectAttack*(player: Player): bool =
+    var d = rand(100)
+    if player.armor.deflect > d:
+        return true
+    return false
 
 
 proc showPlayerInventory*(player: Player) =

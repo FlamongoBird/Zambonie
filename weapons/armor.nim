@@ -1,12 +1,12 @@
 import std/tables
 
 type Armor* = object
-    deflect*: float
+    deflect*: int
     armor*: int
 
 let armors = {
     "leather" : Armor(
-        deflect: 0,
+        deflect: 90,
         armor: 1
     )
 }.toTable

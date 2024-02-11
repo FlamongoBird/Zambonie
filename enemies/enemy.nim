@@ -37,10 +37,14 @@ proc enemyInAttackRange*(enemy: Enemy, x, y: int): bool =
     return false
 
 proc enemyAttack*(enemy: var Enemy, player: var Player) =
-    var dmg = calcDamage(enemy.weapon, player.armor)
-    popup(&"{enemy.name} attacks you! -{dmg}hp")
-    moveOn()
-    hurtPlayer(player, dmg)
+    if playerDeflectAttack(player):
+       popup(&"{enemy.name}'s attack is deflected") 
+       moveOn()
+    else:
+        var dmg = calcDamage(enemy.weapon, player.armor)
+        popup(&"{enemy.name} attacks you! -{dmg}hp")
+        moveOn()
+        hurtPlayer(player, dmg)
 
 
 proc generateGoblin*(dungeon: var seq[seq[int]]): Enemy =
