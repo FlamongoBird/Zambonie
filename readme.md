@@ -9,3 +9,6 @@ Birds are fake.
 then
 
 `./run.sh`
+
+
+> if you edit stuff I expect you know how to recompile and run it
