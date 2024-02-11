@@ -28,6 +28,12 @@ discard spawnItem(5, dungeon_map)
 
 while true:
     dungeon_map[y][x] = 69
+
+    # display enemy
+    for e in enemies:
+        var loc = enemyLoc(e)
+        dungeon_map[loc[1]][loc[0]] = enemySymbol(e)
+
     printDungeonMap(dungeon_map, playerStats(player_data))
     dungeon_map[y][x] = 0
 
@@ -35,6 +41,7 @@ while true:
     for e in enemies:
         var loc = enemyLoc(e)
         dungeon_map[loc[1]][loc[0]] = 0
+
 
     var keypress = getch()
 
@@ -82,9 +89,9 @@ while true:
     
 
     for i, e in enemies:
-        var path = findPathGreedy(dungeon_map, enemyLoc(e), (x, y))
-        var newLoc = moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
-        dungeon_map[newLoc[1]][newLoc[0]] = enemySymbol(e)
+        if enemyInRange(e, x, y):
+            var path = findPathGreedy(dungeon_map, enemyLoc(e), (x, y))
+            moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
 
     if playerDead(player_data):
         die()
