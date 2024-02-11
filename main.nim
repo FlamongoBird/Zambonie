@@ -22,11 +22,8 @@ var
     player_data = newPlayer()
 
 
-findPathGreedy(dungeon_map, (0, 0), (x, y))
 
-quit()
-
-spawnItem(5, dungeon_map)
+discard spawnItem(5, dungeon_map)
 
 while true:
     dungeon_map[y][x] = 69
@@ -50,8 +47,11 @@ while true:
             temp_x = 1
         of 't':
             #hurtPlayer(player_data)
-            var enemy = generateGoblin()
-            spawnItem(enemySymbol(enemy), dungeon_map)
+            var enemy = generateGoblin(dungeon_map)
+            var path = findPathGreedy(dungeon_map, enemyLoc(enemy), (x, y))
+            for loc in path:
+                dungeon_map[loc[0]][loc[1]] = 2
+
 
         of '1':
             showPlayerInventory(player_data)

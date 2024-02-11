@@ -18,7 +18,7 @@ proc generateDungeon*(width, height: int): seq[seq[int]] =
     return dungeon_map
 
 
-proc spawnItem*(item:int, dungeon: var seq[seq[int]]) =
+proc spawnItem*(item:int, dungeon: var seq[seq[int]]): (int, int) =
     while true:
         var y = rand(dungeon.len-2) + 1
         if count(dungeon[y], 0) > 0:
@@ -26,8 +26,7 @@ proc spawnItem*(item:int, dungeon: var seq[seq[int]]) =
                 var x = rand(dungeon[y].len-2) + 1
                 if dungeon[y][x] == 0:
                     dungeon[y][x] = item
-                    break
-            break
+                    return (x, y)
 
 
 
@@ -50,6 +49,8 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                     output = "   " 
                 of 1:
                     output = colorString("   ", [0, 0, 0], [50, 50, 50])
+                of 2:
+                    output = " . "
                 of 5:
                     # treasure
                     output = colorString("[T]", [255, 215, 0], [0,0,0])
