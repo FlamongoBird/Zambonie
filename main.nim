@@ -10,10 +10,10 @@ import enemies/[enemy, enemy_movement]
 #display(message)
 
 # Does some stuff before the start of the game
-#echo "\x1b[?25l"
-#eraseScreen()
+echo "\x1b[?25l"
+eraseScreen()
 
-#showTitle()
+showTitle()
 
 var
     dungeon_map = generateDungeon(10, 10)
