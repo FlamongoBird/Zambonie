@@ -18,15 +18,19 @@ proc generateDungeon*(width, height: int): seq[seq[int]] =
     return dungeon_map
 
 
-proc spawnItem*(item:int, dungeon: var seq[seq[int]]): (int, int) =
+proc findSpawn*(dungeon: var seq[seq[int]]): (int, int) =
     while true:
         var y = rand(dungeon.len-2) + 1
         if count(dungeon[y], 0) > 0:
             while true:
                 var x = rand(dungeon[y].len-2) + 1
                 if dungeon[y][x] == 0:
-                    dungeon[y][x] = item
                     return (x, y)
+
+proc spawnItem*(item:int, dungeon: var seq[seq[int]]): (int, int) =
+    var loc = findSpawn(dungeon)
+    dungeon[loc[1]][loc[0]] = item
+    return loc
 
 
 

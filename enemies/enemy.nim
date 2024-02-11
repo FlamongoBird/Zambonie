@@ -13,12 +13,13 @@ type Enemy* = object
 proc enemyLoc*(enemy: Enemy): (int, int) =
     return (enemy.x, enemy.y)
 
-proc moveEnemy*(loc: (int, int), enemy: var Enemy) =
+proc moveEnemy*(loc: (int, int), enemy: var Enemy): (int, int) =
     enemy.x = loc[0]
     enemy.y = loc[1]
+    return (enemy.x, enemy.y)
 
 proc generateGoblin*(dungeon: var seq[seq[int]]): Enemy =
-    var loc = spawnItem(11, dungeon)
+    var loc = findSpawn(dungeon)
     return Enemy(
         hp: 15,
         weapon: getWeapon("sword"),

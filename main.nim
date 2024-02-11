@@ -20,7 +20,7 @@ var
     x = 5
     y = 5
     player_data = newPlayer()
-    enemy1 = generateGoblin(dungeon_map)
+    enemies = newSeq[Enemy]()
 
 
 
@@ -30,6 +30,12 @@ while true:
     dungeon_map[y][x] = 69
     printDungeonMap(dungeon_map, playerStats(player_data))
     dungeon_map[y][x] = 0
+
+    # erase the enemy
+    for e in enemies:
+        var loc = enemyLoc(e)
+        dungeon_map[loc[1]][loc[0]] = 0
+
     var keypress = getch()
 
     var temp_x = 0
@@ -47,17 +53,7 @@ while true:
         of 'l':
             temp_x = 1
         of 't':
-            #hurtPlayer(player_data)
-            var path = findPathGreedy(dungeon_map, enemyLoc(enemy1), (x, y))
-            var loc = enemyLoc(enemy1)
-            dungeon_map[loc[1]][loc[0]] = enemySymbol(enemy1)
-            moveEnemy(path[^1], enemy1)
-            loc = enemyLoc(enemy1)
-            dungeon_map[loc[1]][loc[0]] = enemySymbol(enemy1)
-            #for loc in path:
-            #    dungeon_map[loc[1]][loc[0]] = 2
-
-
+            enemies.add(generateGoblin(dungeon_map))
         of '1':
             showPlayerInventory(player_data)
         else:
@@ -83,7 +79,12 @@ while true:
     if cont:
         x += temp_x
         y += temp_y
+    
 
+    for i, e in enemies:
+        var path = findPathGreedy(dungeon_map, enemyLoc(e), (x, y))
+        var newLoc = moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
+        dungeon_map[newLoc[1]][newLoc[0]] = enemySymbol(e)
 
     if playerDead(player_data):
         die()
