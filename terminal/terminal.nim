@@ -107,3 +107,8 @@ proc moveOn*()=
             break
     
     eraseScreen()
+
+
+proc helperText*(text: string)=
+    setCursorPos(5, terminalHeight()-5)
+    echo text

@@ -27,14 +27,21 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
         
         # highlight all squares in range
 
+        var highlighted = newSeq[(int, int)]()
+
         for y_r in countup(y-player.weapon.r, y+player.weapon.r):
             for x_r in countup(x-player.weapon.r, x+player.weapon.r):
                 if dungeon[y_r][x_r] == 0:
                     dungeon[y_r][x_r] = 3
-        
+                    highlighted.add((x_r, y_r))
+
         
         printDungeonMap(dungeon, playerStats(player))
+        helperText("H/L - Select Enemy | <space> - Attack | c - Cancel")
         moveOn()
+
+        for loc in highlighted:
+            dungeon[loc[1]][loc[0]] = 0
         
 
 
