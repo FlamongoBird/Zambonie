@@ -5,6 +5,7 @@ import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
 import std/strformat
+import save/save
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -70,7 +71,8 @@ while true:
             if dead != -1:
                 enemies.del(dead)
         of 't':
-            enemies.add(generateGoblin(dungeon_map))
+            #enemies.add(generateGoblin(dungeon_map))
+            saveGameData(playerSaveData(player_data), dungeon_map, enemiesSaveData(enemies))
         of '1':
             showPlayerInventory(player_data)
         else:

@@ -1,6 +1,6 @@
 import std/json
 
-proc saveGameData*(player: string, dungeon: seq[seq[int]], enemies: seq[string]) = 
+proc saveGameData*(player: JsonNode, dungeon: seq[seq[int]], enemies: seq[JsonNode]) = 
     var save_data = %* {
         "player" : player,
         "dungeon" : dungeon,
