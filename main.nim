@@ -62,11 +62,13 @@ while true:
             temp_x = 1
         of 'a':
             playerAttemptAttack(dungeon_map, player_data, enemies, x, y)
+            var dead = -1
             for i, e in enemies:
                 if not enemyAlive(e):
                     popup(&"You killed {e.name}")
-                    # TODO: loot enemy
-                    enemies.del(i)
+                    dead = i
+            if dead != -1:
+                enemies.del(dead)
         of 't':
             enemies.add(generateGoblin(dungeon_map))
         of '1':
@@ -88,6 +90,12 @@ while true:
             cont = true
         of 11:
             cont = true
+        of 21:
+            # dead Goblin
+            # lootEnemy(player, generateEnemy("goblin"))
+            popup("Loot enemy")
+            cont = true
+            discard
         else:
             discard
 
