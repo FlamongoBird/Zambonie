@@ -17,24 +17,27 @@ eraseScreen()
 
 showTitle()
 
-# if saveExists():
-var game_data = restoreGameData()
 var
+    dungeon_map: seq[seq[int]]
+    x: int
+    y: int
+    player_data: Player
+    enemies: seq[Enemy]
+
+if saveExists():
+    var game_data = restoreGameData()
     dungeon_map = game_data.dungeon
-    x = 5
-    y = 5
+    x = game_data.x
+    y = game_data.y
     player_data = game_data.player
     enemies = game_data.enemies
 
-#else:
-#[
-var
+else:
     dungeon_map = generateDungeon(10, 10)
     x = 5
     y = 5
     player_data = newPlayer()
     enemies = newSeq[Enemy]()
-]#
 
 
 
@@ -85,7 +88,7 @@ while true:
         of 'x':
             enemies.add(generateGoblin(dungeon_map))
         of 't':
-            saveGameData(player_data, dungeon_map, enemies)
+            saveGameData(player_data, dungeon_map, enemies, x, y)
         of '1':
             showPlayerInventory(player_data)
         else:
