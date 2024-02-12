@@ -4,6 +4,7 @@ import "../terminal/terminal"
 import "../colors/colors"
 import "../colors/color"
 import "../dungeon/dungeon"
+import std/terminal
 
 proc distanceToEnemy(x, y: int, enemy: Enemy): int =
     return abs(x - enemy.x) + abs(y - enemy.y)
@@ -36,9 +37,33 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                     highlighted.add((x_r, y_r))
 
         
-        printDungeonMap(dungeon, playerStats(player))
-        helperText("H/L - Select Enemy | <space> - Attack | c - Cancel")
-        moveOn()
+        helperText("H/L - Select Enemy | <space> - Attack | C - Cancel")
+
+        var selected = 0
+
+        while true:
+            var s_e = in_range[selected]
+            dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
+            printDungeonMap(dungeon, playerStats(player))
+            var key = getch()
+            case key:
+                of 'h':
+                    selected += 1
+                of 'l':
+                    selected -= 1
+                of ' ':
+                    # attack
+                    discard
+                of 'c':
+                    break
+                else:
+                    discard
+            
+            if selected > len(in_range):
+                selected = 0
+            elif selected < 0:
+                selected = len(in_range)-1
+
 
         for loc in highlighted:
             dungeon[loc[1]][loc[0]] = 0

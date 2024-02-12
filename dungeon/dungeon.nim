@@ -76,6 +76,10 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                 of 21:
                     # Goblin
                     output = colorString(" G ", HIGHLIGHT_FG, HIGHLIGHT_BG)
+                # 31-40 are monsters selected
+                of 31:
+                    # Goblin
+                    output = colorString(" G ", SELECTED_FG, SELECTED_BG)
                 else:
                     output = " . "
             line = line & output
