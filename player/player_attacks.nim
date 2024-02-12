@@ -11,7 +11,7 @@ proc distanceToEnemy(x, y: int, enemy: Enemy): int =
 proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemies: var seq[Enemy], x: int, y:int) =
     var in_range = newSeq[Enemy]()
     for e in enemies:
-        if distanceToEnemy(x, y, e) >= player.weapon.r:
+        if distanceToEnemy(x, y, e) <= player.weapon.r:
             in_range.add(e)
     
     if in_range.len == 0:
@@ -19,7 +19,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
         moveOn()
     else:
         # highlight enemies
-        for e in enemies:
+        for e in in_range:
             # the highlighted version of an enemy is always it's
             # symbol plus 10, ie. un highlighted is 11-20 and highlighted
             # is 21-30

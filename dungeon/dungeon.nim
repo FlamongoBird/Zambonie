@@ -58,10 +58,10 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                     output = colorString("   ", [0, 0, 0], [50, 50, 50])
                 of 2:
                     # empty
-                    output = " . "
+                    output = " * "
                 of 3:
                     # highlighted floor
-                    output = colorString("   ", [0, 0, 0], [150, 150, 150])
+                    output = " . "
                 of 5:
                     # treasure
                     output = colorString("[T]", [255, 215, 0], [0,0,0])
