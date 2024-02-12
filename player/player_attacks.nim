@@ -14,10 +14,10 @@ proc distanceToEnemy(x, y: int, enemy: Enemy): int =
 
 proc playerAttack*(player: var Player, enemy: var Enemy) =
     if enemyDeflectAttack(enemy):
-        popup(&"{enemy.name} deflected your attack")
+        popup(&"{enemy.name} {color(BAD_FG)}deflected{COLOR_RESET} your attack")
     else:
         var dmg = calcDamage(player.weapon, enemy.armor)
-        popup(&"You deal +{dmg}dmg to {enemy.name}")
+        popup(&"You deal +{color(GOOD_FG)}{dmg}{COLOR_RESET}dmg to {enemy.name}")
         hurtEnemy(enemy, dmg)
     moveOn()
 
