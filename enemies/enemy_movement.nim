@@ -1,9 +1,9 @@
 import std/heapqueue
 import tables
-import std/sequtils
 
 #[
-    enemies just use greedy best first
+    enemies just use greedy best first...
+    might switch to A* later
 ]#
 
 
