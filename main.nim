@@ -92,8 +92,7 @@ while true:
             cont = true
         of 21:
             # dead Goblin
-            # lootEnemy(player, generateEnemy("goblin"))
-            popup("Loot enemy")
+            lootEnemy(player_data, generateGoblin())
             cont = true
             discard
         else:
