@@ -4,6 +4,7 @@ import player/[player, player_attacks]
 import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
+import std/strformat
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -61,6 +62,11 @@ while true:
             temp_x = 1
         of 'a':
             playerAttemptAttack(dungeon_map, player_data, enemies, x, y)
+            for i, e in enemies:
+                if not enemyAlive(e):
+                    popup(&"You killed {e.name}")
+                    # TODO: loot enemy
+                    enemies.del(i)
         of 't':
             enemies.add(generateGoblin(dungeon_map))
         of '1':

@@ -23,9 +23,10 @@ proc newPlayer*(): Player =
         hp_max: 20,
         inventory: newSeq[int](0),
         armor: getArmor("leather"),
-        weapon: getWeapon("sword"),
+        weapon: getWeapon("player_weapon"),
     )
     return p
+
 
 proc playerDeflectAttack*(player: Player): bool =
     var d = rand(100)

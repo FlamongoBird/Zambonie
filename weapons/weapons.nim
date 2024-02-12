@@ -10,6 +10,11 @@ let weapons = {
         dmg_min: 3,
         dmg_max: 5,
         r: 1,
+    ),
+    "player_weapon" : Weapon(
+        dmg_min: 100,
+        dmg_max: 100,
+        r: 2,
     )
 }.toTable
 

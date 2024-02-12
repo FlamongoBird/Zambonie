@@ -7,17 +7,35 @@ import "../battle/battle"
 import "../colors/colors"
 import "../colors/color"
 import std/strformat
+import random
+
+
+randomize()
 
 type Enemy* = object
-    name: string
+    name*: string
     hp: int
-    weapon: Weapon
-    armor: Armor
+    weapon*: Weapon
+    armor*: Armor
     symbol: int
     x*: int
     y*: int
     r: int
     attack_r: int
+
+proc enemyAlive*(enemy: Enemy): bool =
+    if enemy.hp > 0:
+        return true
+    return false
+
+proc enemyDeflectAttack*(enemy: Enemy): bool =
+    var d = rand(100)
+    if enemy.armor.deflect > d:
+        return true
+    return false
+
+proc hurtEnemy*(enemy: var Enemy, dmg: int) =
+    enemy.hp -= dmg
 
 proc enemyLoc*(enemy: Enemy): (int, int) =
     return (enemy.x, enemy.y)

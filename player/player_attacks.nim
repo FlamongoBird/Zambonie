@@ -4,10 +4,23 @@ import "../terminal/terminal"
 import "../colors/colors"
 import "../colors/color"
 import "../dungeon/dungeon"
+import "../battle/battle"
 import std/terminal
+import std/strformat
 
 proc distanceToEnemy(x, y: int, enemy: Enemy): int =
     return abs(x - enemy.x) + abs(y - enemy.y)
+
+
+proc playerAttack*(player: var Player, enemy: var Enemy) =
+    if enemyDeflectAttack(enemy):
+        popup(&"{enemy.name} deflected your attack")
+    else:
+        var dmg = calcDamage(player.weapon, enemy.armor)
+        popup(&"You deal +{dmg}dmg to {enemy.name}")
+        hurtEnemy(enemy, dmg)
+    moveOn()
+
 
 proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemies: var seq[Enemy], x: int, y:int) =
     var in_range = newSeq[Enemy]()
@@ -45,6 +58,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
             var s_e = in_range[selected]
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
             printDungeonMap(dungeon, playerStats(player))
+            dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+10
             var key = getch()
             case key:
                 of 'h':
@@ -52,8 +66,8 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                 of 'l':
                     selected -= 1
                 of ' ':
-                    # attack
-                    discard
+                    playerAttack(player, in_range[selected])
+                    break
                 of 'c':
                     break
                 else:
@@ -67,6 +81,8 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
 
         for loc in highlighted:
             dungeon[loc[1]][loc[0]] = 0
+        
+        eraseScreen()
         
 
 
