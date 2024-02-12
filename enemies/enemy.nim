@@ -14,8 +14,8 @@ type Enemy* = object
     weapon: Weapon
     armor: Armor
     symbol: int
-    x: int
-    y: int
+    x*: int
+    y*: int
     r: int
     attack_r: int
 

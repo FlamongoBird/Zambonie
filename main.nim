@@ -1,6 +1,6 @@
 import dungeon/dungeon
 import std/terminal
-import player/player
+import player/[player, player_attacks]
 import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
@@ -59,6 +59,8 @@ while true:
             temp_y = -1
         of 'l':
             temp_x = 1
+        of 'a':
+            playerAttemptAttack(dungeon_map, player_data, enemies, x, y)
         of 't':
             enemies.add(generateGoblin(dungeon_map))
         of '1':

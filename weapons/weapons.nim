@@ -3,11 +3,13 @@ import std/tables
 type Weapon* = object
     dmg_min*: int
     dmg_max*: int
+    r*: int
 
 let weapons = {
     "sword" : Weapon(
         dmg_min: 3,
-        dmg_max: 5
+        dmg_max: 5,
+        r: 1,
     )
 }.toTable
 

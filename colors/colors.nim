@@ -9,3 +9,6 @@ const
     NEUTRAL_BG* = [0, 0, 255]
     BAD_BG* = [255, 0, 0]
     TERRIBLE_BG* = [255, 0, 0]
+    COLOR_RESET* = "\x1b[0m"
+    HIGHLIGHT_FG* = [0, 0, 0]
+    HIGHLIGHT_BG* = [255, 255, 255]

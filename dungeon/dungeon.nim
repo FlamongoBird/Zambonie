@@ -1,4 +1,5 @@
 import "../terminal/terminal"
+import "../colors/colors"
 import sequtils
 import std/strformat
 import std/random
@@ -50,11 +51,17 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
             case item:
                 # 0-10 are map blocks
                 of 0:
+                    # floor
                     output = "   " 
                 of 1:
+                    # walls
                     output = colorString("   ", [0, 0, 0], [50, 50, 50])
                 of 2:
+                    # empty
                     output = " . "
+                of 3:
+                    # highlighted floor
+                    output = colorString("   ", [0, 0, 0], [150, 150, 150])
                 of 5:
                     # treasure
                     output = colorString("[T]", [255, 215, 0], [0,0,0])
@@ -63,7 +70,12 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                     output = " X "
                 # 11-20 are monsters
                 of 11:
+                    # Goblin
                     output = " G "
+                # 21-30 are monsters highlighed
+                of 21:
+                    # Goblin
+                    output = colorString(" G ", HIGHLIGHT_FG, HIGHLIGHT_BG)
                 else:
                     output = " . "
             line = line & output
