@@ -7,7 +7,6 @@ import "../battle/battle"
 import "../colors/colors"
 import "../colors/color"
 import std/strformat
-import std/json
 import random
 
 
@@ -23,14 +22,6 @@ type Enemy* = object
     y*: int
     r: int
 
-proc enemySaveData(enemy: Enemy): JsonNode =
-    return %* enemy
-
-proc enemiesSaveData*(enemies: seq[Enemy]): seq[JsonNode] =
-    var output = newSeq[JsonNode]()
-    for enemy in enemies:
-        output.add(enemySaveData(enemy))
-    return output
 
 proc enemyAlive*(enemy: Enemy): bool =
     if enemy.hp > 0:

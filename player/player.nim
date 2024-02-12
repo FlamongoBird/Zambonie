@@ -4,7 +4,6 @@ import "../terminal/terminal"
 import "../game/treasure"
 import "../weapons/weapons"
 import "../weapons/armor"
-import std/json
 import random
 
 
@@ -27,10 +26,6 @@ proc newPlayer*(): Player =
         weapon: getWeapon("player_weapon"),
     )
     return p
-
-proc playerSaveData*(player: Player): JsonNode =
-    return %* player
-
 
 proc playerDeflectAttack*(player: Player): bool =
     var d = rand(100)
