@@ -5,6 +5,7 @@ import "../player/player"
 import "../terminal/terminal"
 import "../battle/battle"
 import "../colors/colors"
+import "../colors/color"
 import std/strformat
 
 type Enemy* = object
@@ -39,11 +40,11 @@ proc enemyInAttackRange*(enemy: Enemy, x, y: int): bool =
 
 proc enemyAttack*(enemy: var Enemy, player: var Player) =
     if playerDeflectAttack(player):
-       popup(colorString(&"{enemy.name}'s attack is deflected", colors["good-fg"]))
-       moveOn()
+        popup(&"{enemy.name}'s attack is " & colorString("deflected", GOOD_FG))
+        moveOn()
     else:
         var dmg = calcDamage(enemy.weapon, player.armor)
-        popup(&"{enemy.name} attacks you! -{dmg}hp")
+        popup(&"{enemy.name} attacks you! -{colorString($dmg, BAD_FG)}hp")
         moveOn()
         hurtPlayer(player, dmg)
 

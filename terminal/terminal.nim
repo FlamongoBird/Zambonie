@@ -57,10 +57,19 @@ proc popup*(message: string) =
 
     setCursorPos(x+2, y+1)
 
+    var skip = false
+
     for x in message:
         stdout.write(x)
         stdout.flushFile()
-        sleep(25)
+        if ord(x) < 32 or ord(x) > 126:
+            skip = true
+        if x == 'm' and skip:
+            skip = false
+
+        if not skip:
+            sleep(25)
+
 
 
 

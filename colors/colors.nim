@@ -1,16 +1,11 @@
-import "../colors/color"
-import tables
-
-
-const colors* = {
-    "great-fg" : color([0, 255, 0]),
-    "good-fg" : color([0, 255, 0]),
-    "neutral-fg" : color([0, 0, 255]),
-    "bad-fg" : color([255, 0, 0]),
-    "terrible-fg" : color([255, 0, 0]),
-    "great-bg" : color([0, 255, 0], true),
-    "good-bg" : color([0, 255, 0], true),
-    "neutral-bg" : color([0, 0, 255], true),
-    "bad-bg" : color([255, 0, 0], true),
-    "terrible-bg" : color([255, 0, 0], true),
-}.toTable
+const
+    GREAT_FG* = [0, 255, 0]
+    GOOD_FG* = [0, 255, 0]
+    NEUTRAL_FG* = [0, 0, 255]
+    BAD_FG* = [255, 0, 0]
+    TERRIBLE_FG* = [255, 0, 0]
+    GREAT_BG* = [0, 255, 0]
+    GOOD_BG* = [0, 255, 0]
+    NEUTRAL_BG* = [0, 0, 255]
+    BAD_BG* = [255, 0, 0]
+    TERRIBLE_BG* = [255, 0, 0]
