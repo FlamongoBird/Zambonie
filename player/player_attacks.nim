@@ -86,6 +86,8 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
             dungeon[loc[1]][loc[0]] = 0
         
         eraseScreen()
+
+        printDungeonMap(dungeon, playerStats(player))
         
 
 
