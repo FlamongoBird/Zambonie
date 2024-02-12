@@ -27,7 +27,6 @@ proc newPlayer*(): Player =
     )
     return p
 
-
 proc playerDeflectAttack*(player: Player): bool =
     var d = rand(100)
     if player.armor.deflect > d:

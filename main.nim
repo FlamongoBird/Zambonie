@@ -5,6 +5,7 @@ import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
 import std/strformat
+import save/[save, restore]
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -16,16 +17,28 @@ eraseScreen()
 
 showTitle()
 
+# if saveExists():
+var game_data = restoreGameData()
+var
+    dungeon_map = game_data.dungeon
+    x = 5
+    y = 5
+    player_data = game_data.player
+    enemies = game_data.enemies
+
+#else:
+#[
 var
     dungeon_map = generateDungeon(10, 10)
     x = 5
     y = 5
     player_data = newPlayer()
     enemies = newSeq[Enemy]()
+]#
 
 
 
-discard spawnItem(5, dungeon_map)
+#discard spawnItem(5, dungeon_map)
 
 while true:
     dungeon_map[y][x] = 69
@@ -69,8 +82,10 @@ while true:
                     dead = i
             if dead != -1:
                 enemies.del(dead)
-        of 't':
+        of 'x':
             enemies.add(generateGoblin(dungeon_map))
+        of 't':
+            saveGameData(player_data, dungeon_map, enemies)
         of '1':
             showPlayerInventory(player_data)
         else:
@@ -92,8 +107,7 @@ while true:
             cont = true
         of 21:
             # dead Goblin
-            # lootEnemy(player, generateEnemy("goblin"))
-            popup("Loot enemy")
+            lootEnemy(player_data, generateGoblin())
             cont = true
             discard
         else:

@@ -14,10 +14,10 @@ proc distanceToEnemy(x, y: int, enemy: Enemy): int =
 
 proc playerAttack*(player: var Player, enemy: var Enemy) =
     if enemyDeflectAttack(enemy):
-        popup(&"{enemy.name} deflected your attack")
+        popup(&"{enemy.name} {color(BAD_FG)}deflected{COLOR_RESET} your attack")
     else:
         var dmg = calcDamage(player.weapon, enemy.armor)
-        popup(&"You deal +{dmg}dmg to {enemy.name}")
+        popup(&"You deal +{color(GOOD_FG)}{dmg}{COLOR_RESET}dmg to {enemy.name}")
         hurtEnemy(enemy, dmg)
     moveOn()
 
@@ -59,6 +59,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
         while true:
             var s_e = enemies[in_range[selected]]
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
+            dungeon[y][x] = 69
             printDungeonMap(dungeon, playerStats(player))
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+10
             var key = getch()
@@ -85,6 +86,8 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
             dungeon[loc[1]][loc[0]] = 0
         
         eraseScreen()
+
+        printDungeonMap(dungeon, playerStats(player))
         
 
 

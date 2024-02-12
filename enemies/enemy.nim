@@ -21,7 +21,7 @@ type Enemy* = object
     x*: int
     y*: int
     r: int
-    attack_r: int
+
 
 proc enemyAlive*(enemy: Enemy): bool =
     if enemy.hp > 0:
@@ -33,6 +33,10 @@ proc enemyDeflectAttack*(enemy: Enemy): bool =
     if enemy.armor.deflect > d:
         return true
     return false
+
+proc lootEnemy*(player: var Player, enemy: Enemy) =
+    # TODO: Implement this later
+    discard
 
 proc hurtEnemy*(enemy: var Enemy, dmg: int) =
     enemy.hp -= dmg
@@ -46,13 +50,13 @@ proc moveEnemy*(loc: (int, int), enemy: var Enemy) =
 
 proc enemyInRange*(enemy: Enemy, x, y: int): bool =
     var distance = abs(enemy.x - x) + abs(enemy.y - y)
-    if distance <= enemy.r and distance > enemy.attack_r:
+    if distance <= enemy.r and distance > enemy.weapon.r:
         return true
     return false
 
 proc enemyInAttackRange*(enemy: Enemy, x, y: int): bool =
     var distance = abs(enemy.x - x) + abs(enemy.y - y)
-    if distance <= enemy.attack_r:
+    if distance <= enemy.weapon.r:
         return true
     return false
 
@@ -78,7 +82,17 @@ proc generateGoblin*(dungeon: var seq[seq[int]]): Enemy =
         x: loc[0],
         y: loc[1],
         r: 5,
-        attack_r: 1,
+    )
+proc generateGoblin*(): Enemy =
+    return Enemy(
+        name: "Goblin",
+        hp: 15,
+        weapon: getWeapon("sword"),
+        armor: getArmor("leather"),
+        symbol: 11,
+        x: 0,
+        y: 0,
+        r: 5,
     )
 
 proc enemySymbol*(enemy: Enemy): int =
