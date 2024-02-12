@@ -23,17 +23,19 @@ proc playerAttack*(player: var Player, enemy: var Enemy) =
 
 
 proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemies: var seq[Enemy], x: int, y:int) =
-    var in_range = newSeq[Enemy]()
-    for e in enemies:
+    # sequence of indexes of enemies... fyi
+    var in_range = newSeq[int]()
+    for i, e in enemies:
         if distanceToEnemy(x, y, e) <= player.weapon.r:
-            in_range.add(e)
+            in_range.add(i)
     
     if in_range.len == 0:
         popup(color(NEUTRAL_FG) & "No enemies in range." & COLOR_RESET)
         moveOn()
     else:
         # highlight enemies
-        for e in in_range:
+        for index in in_range:
+            var e = enemies[index]
             # the highlighted version of an enemy is always it's
             # symbol plus 10, ie. un highlighted is 11-20 and highlighted
             # is 21-30
@@ -55,7 +57,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
         var selected = 0
 
         while true:
-            var s_e = in_range[selected]
+            var s_e = enemies[in_range[selected]]
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
             printDungeonMap(dungeon, playerStats(player))
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+10
@@ -66,7 +68,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                 of 'l':
                     selected -= 1
                 of ' ':
-                    playerAttack(player, in_range[selected])
+                    playerAttack(player, enemies[in_range[selected]])
                     break
                 of 'c':
                     break
