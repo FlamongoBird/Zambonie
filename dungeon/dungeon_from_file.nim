@@ -20,6 +20,8 @@ proc dungeonFromFile*(file: string): Dungeon =
                     row.add(4)
                 of 'D':
                     row.add(10)
+                of '.':
+                    row.add(2)
                 else:
                     row.add(0)
         output.add(row)

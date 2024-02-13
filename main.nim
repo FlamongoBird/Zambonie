@@ -149,7 +149,7 @@ while true:
             cont = true
             skibidi = true
         else:
-            discard
+            skibidi = true
 
     if cont:
         x += temp_x
@@ -159,7 +159,8 @@ while true:
     for i, e in enemies:
         if enemyInRange(e, x, y):
             var path = findPathGreedy(dungeon_map, enemyLoc(e), (x, y))
-            moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
+            if path.len > 0:
+                moveEnemy(path[^1], enemies[i]) # can't be a lent enemy for this one
         elif enemyInAttackRange(e, x, y):
             enemyAttack(enemies[i], player_data)
 
