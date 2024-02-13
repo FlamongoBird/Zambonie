@@ -44,9 +44,9 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
     var final = newSeq[string](0) 
     final.add(stats)
     final.add(" ")
-    for row in dungeon_map:
+    for y, row in dungeon_map:
         var line = ""
-        for item in row:
+        for x, item in row:
             var output: string
             case item:
                 # 0-10 are map blocks
