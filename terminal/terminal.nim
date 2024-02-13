@@ -9,7 +9,7 @@ proc stringLength(str: string): int =
     #[ counts the characters in a string without counting 
     the ansi escape codes ]#
     var new_string = replace(str, re"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])", "")
-    return replace(new_string, re"(═)|(╔)|(╗)|(║)|(╝)|(╚)", "#").len
+    return replace(new_string, re"(═)|(╔)|(╗)|(║)|(╝)|(╚)", " ").len
 
 
 proc longestString(strings: seq[string]): int =

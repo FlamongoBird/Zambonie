@@ -18,6 +18,8 @@ proc dungeonFromFile*(file: string): Dungeon =
                     row.add(1)
                 of '-':
                     row.add(4)
+                of 'D':
+                    row.add(10)
                 else:
                     row.add(0)
         output.add(row)

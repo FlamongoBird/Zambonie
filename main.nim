@@ -24,6 +24,7 @@ var
     y: int
     player_data: Player
     enemies: seq[Enemy]
+    dir = "none"
 
 if saveExists():
     var game_data = restoreGameData()
@@ -74,12 +75,16 @@ while true:
             break
         of 'h':
             temp_x = -1
+            dir = "left"
         of 'j':
             temp_y = 1
+            dir = "down"
         of 'k':
             temp_y = -1
+            dir = "up"
         of 'l':
             temp_x = 1
+            dir = "right"
         of 'a':
             playerAttemptAttack(dungeon_map, player_data, enemies, x, y)
             var dead = -1
@@ -117,6 +122,17 @@ while true:
             lootEnemy(player_data, generateGoblin())
             cont = true
             discard
+        of 10:
+            # move through door
+            if dir == "up":
+                y -= 1
+            elif dir == "down":
+                y += 1
+            elif dir == "right":
+                x += 1 
+            else:
+                x -= 1
+            cont = true
         else:
             discard
 
