@@ -1,7 +1,8 @@
 import std/strutils
+import std/sequtils
 
 
-proc dungeonFromFile(file: string): seq[seq[int]] =
+proc dungeonFromFile*(file: string): seq[seq[int]] =
     var raw = readFile(file)
     var lines = split(raw, "\n")
 
@@ -9,12 +10,12 @@ proc dungeonFromFile(file: string): seq[seq[int]] =
 
     for line in lines:
         var row: seq[int]
-        var ripped = split(line, "")
+        var ripped = toSeq(line.items)
         for str in ripped:
             case str:
-                of "#":
+                of '#':
                     row.add(1)
-                of "-":
+                of '-':
                     row.add(4)
                 else:
                     row.add(0)
