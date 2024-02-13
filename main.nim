@@ -25,7 +25,8 @@ var
     player_data: Player
     enemies: seq[Enemy]
     dir = "none"
-    skibidi = 0
+    skibidi = false
+    saved: int
 
 if saveExists():
     var game_data = restoreGameData()
@@ -50,6 +51,9 @@ else:
 #discard spawnItem(5, dungeon_map)
 
 while true:
+    if skibidi:
+        saved = dungeon_map[y][x]
+    
     dungeon_map[y][x] = 69
 
     # display enemy
@@ -59,9 +63,9 @@ while true:
 
     printDungeonMap(dungeon_map, playerStats(player_data))
 
-    if skibidi != 0:
-        dungeon_map[y][x] = skibidi
-        skibidi = 0
+    if skibidi:
+        dungeon_map[y][x] = saved
+        skibidi = false
     else:
         dungeon_map[y][x] = 0
 
@@ -139,10 +143,11 @@ while true:
             else:
                 x -= 1
             cont = true
+            skibidi = true
         of 4:
             # walk but don't erase
             cont = true
-            skibidi = 4
+            skibidi = true
         else:
             discard
 
