@@ -1,4 +1,4 @@
-import dungeon/dungeon
+import dungeon/[dungeon, dungeon_from_file, dungeon_generator]
 import std/terminal
 import player/[player, player_attacks]
 import game/[die, title, treasure]
@@ -33,7 +33,8 @@ if saveExists():
     enemies = game_data.enemies
 
 else:
-    dungeon_map = generateDungeon(10, 10)
+    #dungeon_map = generateDungeon(10, 10)
+    dungeon_map = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
     x = 5
     y = 5
     player_data = newPlayer()
