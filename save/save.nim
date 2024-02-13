@@ -1,18 +1,19 @@
 import std/json
 import "../player/player"
 import "../enemies/enemy"
+import "../dungeon/dungeon_object"
 from os import fileExists
 
 type
     GameSave* = object
         player*: Player
-        dungeon*: seq[seq[int]]
+        dungeon*: Dungeon
         enemies*: seq[Enemy]
         x*: int
         y*: int
 
 
-proc saveGameData*(player: Player, dungeon: seq[seq[int]], enemies: seq[Enemy], x, y: int) = 
+proc saveGameData*(player: Player, dungeon: Dungeon, enemies: seq[Enemy], x, y: int) = 
     var game_save = %* GameSave(
         player: player,
         dungeon: dungeon,

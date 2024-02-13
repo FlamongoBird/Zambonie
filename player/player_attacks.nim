@@ -3,7 +3,7 @@ import "../enemies/enemy"
 import "../terminal/terminal"
 import "../colors/colors"
 import "../colors/color"
-import "../dungeon/dungeon"
+import "../dungeon/dungeon_handler"
 import "../battle/battle"
 import std/terminal
 import std/strformat

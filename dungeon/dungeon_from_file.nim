@@ -1,8 +1,9 @@
 import std/strutils
 import std/sequtils
+import "../dungeon/dungeon_object"
 
 
-proc dungeonFromFile*(file: string): seq[seq[int]] =
+proc dungeonFromFile*(file: string): Dungeon =
     var raw = readFile(file)
     var lines = split(raw, "\n")
 
@@ -21,5 +22,5 @@ proc dungeonFromFile*(file: string): seq[seq[int]] =
                     row.add(0)
         output.add(row)
     
-    return output
+    return Dungeon(dungeon_map: output)
 

@@ -1,4 +1,4 @@
-import dungeon/[dungeon, dungeon_from_file, dungeon_generator]
+import dungeon/[dungeon_handler, dungeon_from_file, dungeon_generator, dungeon_object]
 import std/terminal
 import player/[player, player_attacks]
 import game/[die, title, treasure]
@@ -18,6 +18,7 @@ eraseScreen()
 showTitle()
 
 var
+    dungeon: Dungeon
     dungeon_map: seq[seq[int]]
     x: int
     y: int
@@ -26,7 +27,8 @@ var
 
 if saveExists():
     var game_data = restoreGameData()
-    dungeon_map = game_data.dungeon
+    dungeon = game_data.dungeon
+    dungeon_map = dungeon.dungeon_map
     x = game_data.x
     y = game_data.y
     player_data = game_data.player
@@ -34,7 +36,8 @@ if saveExists():
 
 else:
     #dungeon_map = generateDungeon(10, 10)
-    dungeon_map = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
+    dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
+    dungeon_map = dungeon.dungeon_map
     x = 5
     y = 5
     player_data = newPlayer()
@@ -89,7 +92,7 @@ while true:
         of 'x':
             enemies.add(generateGoblin(dungeon_map))
         of 't':
-            saveGameData(player_data, dungeon_map, enemies, x, y)
+            saveGameData(player_data, dungeon, enemies, x, y)
         of '1':
             showPlayerInventory(player_data)
         else:

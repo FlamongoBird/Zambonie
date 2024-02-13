@@ -1,6 +1,6 @@
 import "../weapons/weapons"
 import "../weapons/armor"
-import "../dungeon/dungeon"
+import "../dungeon/dungeon_handler"
 import "../player/player"
 import "../terminal/terminal"
 import "../battle/battle"
