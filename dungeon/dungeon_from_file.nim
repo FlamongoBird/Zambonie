@@ -1,6 +1,7 @@
 import std/strutils
 import std/sequtils
 import "../dungeon/dungeon_object"
+import "../dungeon/dungeon_handler"
 
 
 proc dungeonFromFile*(file: string): Dungeon =
@@ -25,6 +26,12 @@ proc dungeonFromFile*(file: string): Dungeon =
                 else:
                     row.add(0)
         output.add(row)
-    
-    return Dungeon(dungeon_map: output)
+
+    echo "Getting ready to return" 
+    return Dungeon(
+        dungeon_map: output,
+        rooms: splitIntoRooms(output),
+        current_room: 0,
+        links: @[],
+    )
 

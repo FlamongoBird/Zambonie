@@ -76,7 +76,7 @@ proc popup*(message: string) =
 
 
 
-proc centerString(str: string, width: int): string =
+proc centerString*(str: string, width: int): string =
     if str.len >= width:
         return str
 
@@ -88,7 +88,7 @@ proc centerString(str: string, width: int): string =
     return repeat(" ", right_side) & str & repeat(" ", left_side)
 
 
-proc centerStrings(strings: seq[string], width: int): seq[string] =
+proc centerStrings*(strings: seq[string], width: int): seq[string] =
     var output = newSeq[string](0)
 
     for str in strings:

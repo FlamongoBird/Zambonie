@@ -5,7 +5,7 @@ import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
 import std/strformat
-import save/[save, restore]
+#import save/[save, restore]
 
 #[ Old stuff ignore ]#
 #var message = @["Hello Jonathan!", "How's it going"]
@@ -15,7 +15,7 @@ import save/[save, restore]
 echo "\x1b[?25l"
 eraseScreen()
 
-showTitle()
+#showTitle()
 
 var
     dungeon: Dungeon
@@ -28,25 +28,28 @@ var
     skibidi = false
     saved: int
 
+#[
 if saveExists():
     var game_data = restoreGameData()
     dungeon = game_data.dungeon
-    dungeon_map = dungeon.dungeon_map
     x = game_data.x
     y = game_data.y
     player_data = game_data.player
     enemies = game_data.enemies
+]#
+#else:
+#dungeon_map = generateDungeon(10, 10)
+dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
+x = 5
+y = 5
+player_data = newPlayer()
+enemies = newSeq[Enemy]()
 
-else:
-    #dungeon_map = generateDungeon(10, 10)
-    dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
-    dungeon_map = dungeon.dungeon_map
-    x = 5
-    y = 5
-    player_data = newPlayer()
-    enemies = newSeq[Enemy]()
+dungeon_map = dungeon.rooms[dungeon.current_room]
 
-
+echo "Dungeon Map: "
+echo dungeon_map
+echo "."
 
 #discard spawnItem(5, dungeon_map)
 
@@ -107,7 +110,8 @@ while true:
         of 'x':
             enemies.add(generateGoblin(dungeon_map))
         of 't':
-            saveGameData(player_data, dungeon, enemies, x, y)
+            #saveGameData(player_data, dungeon, enemies, x, y)
+            discard
         of '1':
             showPlayerInventory(player_data)
         else:
