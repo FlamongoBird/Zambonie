@@ -1,4 +1,4 @@
-import dungeon/[dungeon_handler, dungeon_from_file, dungeon_generator, dungeon_object]
+import dungeon/[dungeon_handler, dungeon_from_file, dungeon_generator]
 import std/terminal
 import player/[player, player_attacks]
 import game/[die, title, treasure]
@@ -7,9 +7,6 @@ import enemies/[enemy, enemy_movement]
 import std/strformat
 #import save/[save, restore]
 
-#[ Old stuff ignore ]#
-#var message = @["Hello Jonathan!", "How's it going"]
-#display(message)
 
 # Does some stuff before the start of the game
 echo "\x1b[?25l"
@@ -18,8 +15,11 @@ eraseScreen()
 #showTitle()
 
 var
-    dungeon: Dungeon
-    dungeon_map: seq[seq[int]]
+    dungeon = generateDungeon(
+        width=100,
+        height=100,
+        max_rooms=40,
+    )
     x: int
     y: int
     player_data: Player
@@ -39,19 +39,20 @@ if saveExists():
 ]#
 #else:
 #dungeon_map = generateDungeon(10, 10)
-dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
-x = 5
-y = 5
+
+#dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
 player_data = newPlayer()
 enemies = newSeq[Enemy]()
 
-dungeon_map = dungeon.rooms[dungeon.current_room]
-
-echo "Dungeon Map: "
-echo dungeon_map
-echo "."
+#dungeon_map = dungeon.rooms[dungeon.current_room]
 
 #discard spawnItem(5, dungeon_map)
+
+var dungeon_map = dungeon.rooms[dungeon.current_room].room
+
+var cords = findSpawn(dungeon_map)
+x = cords[0]
+y = cords[1]
 
 while true:
     if skibidi:
@@ -174,3 +175,4 @@ while true:
 
 # does some stuff after the game (if the while loop ends)
 echo "\x1b[?25h"
+echo "Goodbye!\n"
