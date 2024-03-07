@@ -30,7 +30,7 @@ type
 
 
 const
-    EMPTY_CONNECTION = Connection(
+    EMPTY_CONNECTION* = Connection(
         from_id: 0,
         to_id: 0
     )
@@ -133,34 +133,6 @@ proc drawRoom(dungeon: var Dungeon, room: Room) =
         for x in countup(room.start[0], room.start[0]+room.width):
             dungeon.dungeon[y][x] = 0
 
-proc distanceBetween(l1, l2: (int, int)): int =
-    return abs(l1[0] - l2[0]) + abs(l1[1] + l2[1])
-
-proc findClosestRoom(dungeon: var Dungeon, room: Room): int =
-    var closest = dungeon.rooms[0]
-    var i = 0
-    for index, item in dungeon.rooms:
-        var r = dungeon.rooms[index]
-        if room == closest:
-            closest = r
-            i = index
-            continue
-        if room.connection != EMPTY_CONNECTION:
-            continue
-        if distanceBetween(r.start, room.start) < distanceBetween(closest.start, room.start):
-            closest = r
-            i = index
-    return i
-
-
-
-proc connectRooms(id1, id2: int, dungeon: var Dungeon): Connection =
-    var r1 = dungeon.rooms[id1]
-    r1.connection.from_id = id1
-    r1.connection.to_id = id2
-    return r1.connection
-
-
 proc generateDungeon*(width, height, max_rooms: int): Dungeon =
     var
         dungeon = Dungeon(
@@ -176,14 +148,38 @@ proc generateDungeon*(width, height, max_rooms: int): Dungeon =
         attempts += 1
         generateRoom(dungeon)
 
+    for room in dungeon.rooms:
+        drawRoom(dungeon, room)
 
-    for i, r in dungeon.rooms:
-        var r1 = i
-        var r2 = findClosestRoom(dungeon, dungeon.rooms[i])
-        dungeon.rooms[i].connection = connectRooms(r1, r2, dungeon)
+    # link the rooms
+
+    var
+        next: int
+        prev = len(dungeon.rooms)-1
+        available = newSeq[int]()
+
+    for x in dungeon.rooms:
+        available.add(dungeon.rooms.find(x))
+
+    for index, room in dungeon.rooms:
+        if len(available) > 1:
+            while true:
+                # hyper efficient
+                next = rand(len(available)-1)
+                if available[next] != prev:
+                    break
+
+            dungeon.rooms[index].connection = Connection(
+                from_id:prev,
+                to_id:available[next]
+            )
+            available.delete(next)
+            prev = index
 
 
     for room in dungeon.rooms:
-        drawRoom(dungeon, room)
+        echo room.connection
+
+
 
     return dungeon

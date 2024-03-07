@@ -18,7 +18,7 @@ var
     dungeon = generateDungeon(
         width=100,
         height=100,
-        max_rooms=40,
+        max_rooms=4,
     )
     x: int
     y: int
@@ -50,6 +50,8 @@ enemies = newSeq[Enemy]()
 
 dungeon.current_room = 0
 
+var lastRoom = 0
+
 var dungeon_map = dungeon.rooms[dungeon.current_room].room
 
 var cords = findSpawn(dungeon_map)
@@ -69,6 +71,7 @@ while true:
 
     printDungeonMap(dungeon_map, playerStats(player_data))
     echo &"Current Room: {dungeon.current_room}"
+    echo dungeon.rooms[dungeon.current_room].connection
 
     if skibidi:
         dungeon_map[y][x] = saved
@@ -141,9 +144,10 @@ while true:
             lootEnemy(player_data, generateGoblin())
             cont = true
             discard
-        of 10:
-            dungeon.current_room -= 1
+        of 10: 
             var room = dungeon.rooms[dungeon.current_room] 
+            dungeon.current_room = room.connection.to_id
+            room = dungeon.rooms[dungeon.current_room]
             var cords = adjustCords(room, room.exit)
 
             x = cords[0]
@@ -151,7 +155,7 @@ while true:
             dungeon_map = room.room
             eraseScreen()
         of 9:
-            dungeon.current_room += 1
+            dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.from_id
             var room = dungeon.rooms[dungeon.current_room] 
             var cords = adjustCords(room, room.entry)
 
