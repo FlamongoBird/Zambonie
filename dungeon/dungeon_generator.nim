@@ -90,13 +90,13 @@ proc genRoomDoor(room: Room): (int, int) =
     var t = rand(3)
     case t:
         of 0:
-            return (0, rand(len(room.room)-1))
+            result = (1, rand(len(room.room)-1))
         of 1:
-            return (len(room.room[0])-1, rand(len(room.room)-1))
+            result = (len(room.room[0])-1, rand(len(room.room)-2))
         of 2:
-            return (rand(len(room.room[0])-1), 0)
+            result = (rand(len(room.room[0])-2), 0)
         else:
-            return (rand(len(room.room[0])-1), len(room.room)-1)
+            result = (rand(len(room.room[0])-2), len(room.room)-1)
 
 
 proc drawDoors(room: var Room) =
