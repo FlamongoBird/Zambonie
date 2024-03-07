@@ -90,9 +90,12 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string) =
                 of 4:
                     # tunnel
                     output = colorString(" ~ ", [75, 75, 75], [0, 0, 0])
+                of 9:
+                    # exit
+                    output = colorString("   ", [0,0,0], [200, 0, 0])
                 of 10:
-                    # Door
-                    output = " | "
+                    # entry
+                    output = colorString("   ", [0,0,0], [0, 200, 0])
                 of 5:
                     # treasure
                     output = colorString("[T]", [255, 215, 0], [0,0,0])

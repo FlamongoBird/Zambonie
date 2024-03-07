@@ -126,6 +126,7 @@ while true:
 
     var cont = false
 
+
     case spot:
         of 0:
             cont = true
@@ -141,21 +142,18 @@ while true:
             cont = true
             discard
         of 10:
-            var
-                room: Room
-                cords: (int, int)
+            dungeon.current_room -= 1
+            var room = dungeon.rooms[dungeon.current_room] 
+            var cords = adjustCords(room, room.exit)
 
-            if dungeon.atRoomEntry(x+temp_x, y+temp_y):
-                # we get verbose
-                dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.to_id
-                room = dungeon.rooms[dungeon.current_room] 
-                cords = adjustCords(room, room.entry)
-            else:
-                popup("exiting")
-                moveOn()
-                dungeon.current_room = dungeon.rooms[dungeon.rooms[dungeon.current_room].connection.from_id].connection.to_id
-                room = dungeon.rooms[dungeon.current_room] 
-                cords = adjustCords(room, room.exit)
+            x = cords[0]
+            y = cords[1]
+            dungeon_map = room.room
+            eraseScreen()
+        of 9:
+            dungeon.current_room += 1
+            var room = dungeon.rooms[dungeon.current_room] 
+            var cords = adjustCords(room, room.entry)
 
             x = cords[0]
             y = cords[1]
@@ -177,6 +175,7 @@ while true:
             skibidi = true
         else:
             skibidi = true
+
 
     if cont:
         x += temp_x

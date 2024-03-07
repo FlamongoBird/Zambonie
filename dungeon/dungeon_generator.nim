@@ -90,20 +90,20 @@ proc genRoomDoor(room: Room): (int, int) =
     var t = rand(3)
     case t:
         of 0:
-            result = (1, rand(len(room.room)-1))
+            result = (0, (rand(len(room.room)-3)+1))
         of 1:
-            result = (len(room.room[0])-1, rand(len(room.room)-2))
+            result = (len(room.room[0])-1, (rand(len(room.room)-3)+1))
         of 2:
-            result = (rand(len(room.room[0])-2), 0)
+            result = ((rand(len(room.room[0])-3)+1), 0)
         else:
-            result = (rand(len(room.room[0])-2), len(room.room)-1)
+            result = ((rand(len(room.room[0])-3)+1), len(room.room)-1)
 
 
 proc drawDoors(room: var Room) =
     room.entry = genRoomDoor(room)
     room.exit = genRoomDoor(room)
     room.room[room.entry[1]][room.entry[0]] = 10
-    room.room[room.exit[1]][room.exit[0]] = 10
+    room.room[room.exit[1]][room.exit[0]] = 9
 
 proc generateRoom(dungeon: var Dungeon) =
     var
