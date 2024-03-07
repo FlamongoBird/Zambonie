@@ -48,6 +48,8 @@ enemies = newSeq[Enemy]()
 
 #discard spawnItem(5, dungeon_map)
 
+dungeon.current_room = 5
+
 var dungeon_map = dungeon.rooms[dungeon.current_room].room
 
 var cords = findSpawn(dungeon_map)
@@ -66,6 +68,7 @@ while true:
         dungeon_map[loc[1]][loc[0]] = enemySymbol(e)
 
     printDungeonMap(dungeon_map, playerStats(player_data))
+    echo &"Current Room: {dungeon.current_room}"
 
     if skibidi:
         dungeon_map[y][x] = saved
@@ -138,17 +141,36 @@ while true:
             cont = true
             discard
         of 10:
-            # move through door
-            if dir == "up":
-                y -= 1
-            elif dir == "down":
-                y += 1
-            elif dir == "right":
-                x += 1 
+            var
+                room: Room
+                cords: (int, int)
+
+            if dungeon.enteringRoom(x, y):
+                # we get verbose
+                popup(&"Room Link: {dungeon.rooms[dungeon.current_room].connection}")
+                moveOn()
+                dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.to_id
+                room = dungeon.rooms[dungeon.current_room] 
+                cords = adjustCords(room, room.entry)
             else:
-                x -= 1
-            cont = true
-            skibidi = true
+                popup(&"Exiting Room Link: {dungeon.rooms[dungeon.current_room].connection}")
+                moveOn()
+                dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.from_id
+                room = dungeon.rooms[dungeon.current_room] 
+                cords = adjustCords(room, room.exit)
+
+            x = cords[0]
+            y = cords[1]
+            dungeon_map = room.room
+            
+
+            # if entering a room, set dungeon map to new room
+            # and then remove the drawn connection
+            # update current room
+            # if exiting a room, draw connection between room
+            # and store connection
+            # cut map to display map and display
+            # set current room to -1 (triggers map cut)
         of 4:
             # walk but don't erase
             cont = true

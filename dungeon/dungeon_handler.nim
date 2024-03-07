@@ -4,8 +4,33 @@ import sequtils
 import std/strformat
 import std/random
 import std/deques
+import dungeon_generator
 
 randomize()
+
+
+
+
+proc enteringRoom*(dungeon: Dungeon, x, y: int): bool =
+    if (x, y) == dungeon.rooms[dungeon.current_room].entry:
+        return true
+    return false
+
+proc adjustCords*(room: Room, cords: (int, int)): (int, int) =
+    #[ Figures out if the door is on the top, bottom, left, right of the
+    room and adjusts the cords one above, below, etc ]#
+    result = (cords[0], cords[1])
+
+    if result[0] == len(room.room[0])-1:
+        result[0] -= 1
+    if result[0] == 0:
+        result[0] = 1
+
+    if result[1] == len(room.room)-1:
+        result[1] -= 1
+    if result[1] == 0:
+        result[1] = 1
+
 
 proc generateDungeon*(width, height: int): seq[seq[int]] =
     var dungeon_map = newSeqWith(height, newSeq[int](width))

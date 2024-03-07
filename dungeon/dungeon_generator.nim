@@ -9,17 +9,17 @@ const
 
 type
     Connection* = object
-        from_id: int
-        to_id: int
+        from_id*: int
+        to_id*: int
 
     Room* = object
         start*: (int, int)
         room*: seq[seq[int]]
-        width: int
-        height: int
-        connection: Connection
-        entry: (int, int)
-        exit: (int, int)
+        width*: int
+        height*: int
+        connection*: Connection
+        entry*: (int, int)
+        exit*: (int, int)
 
     Dungeon* = object
         dungeon*: seq[seq[int]]
