@@ -13,8 +13,8 @@ randomize()
 
 proc enteringRoom*(dungeon: Dungeon, x, y: int): bool =
     if (x, y) == dungeon.rooms[dungeon.current_room].entry:
-        return true
-    return false
+        return false
+    return true
 
 proc adjustCords*(room: Room, cords: (int, int)): (int, int) =
     #[ Figures out if the door is on the top, bottom, left, right of the
