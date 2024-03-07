@@ -176,10 +176,7 @@ proc generateDungeon*(width, height, max_rooms: int): Dungeon =
             available.delete(next)
             prev = index
 
-
-    for room in dungeon.rooms:
-        echo room.connection
-
+    dungeon.rooms[^1].connection.from_id = prev
 
 
     return dungeon
