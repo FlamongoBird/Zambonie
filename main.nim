@@ -145,7 +145,7 @@ while true:
                 room: Room
                 cords: (int, int)
 
-            if dungeon.enteringRoom(x, y):
+            if dungeon.atRoomEntry(x, y):
                 # we get verbose
                 popup(&"Room Link: {dungeon.rooms[dungeon.current_room].connection}")
                 moveOn()

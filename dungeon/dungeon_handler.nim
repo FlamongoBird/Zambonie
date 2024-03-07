@@ -11,10 +11,10 @@ randomize()
 
 
 
-proc enteringRoom*(dungeon: Dungeon, x, y: int): bool =
-    if (x, y) == dungeon.rooms[dungeon.current_room].entry:
-        return false
-    return true
+proc atRoomEntry*(dungeon: Dungeon, x, y: int): bool =
+    if dungeon.rooms[dungeon.current_room].entry[0] == x and dungeon.rooms[dungeon.current_room].entry[1] == y:
+        return true
+    return false
 
 proc adjustCords*(room: Room, cords: (int, int)): (int, int) =
     #[ Figures out if the door is on the top, bottom, left, right of the
