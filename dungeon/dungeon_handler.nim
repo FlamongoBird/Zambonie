@@ -3,7 +3,6 @@ import "../colors/colors"
 import sequtils
 import std/strformat
 import std/random
-import std/deques
 import dungeon_generator
 
 randomize()

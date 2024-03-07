@@ -48,7 +48,7 @@ enemies = newSeq[Enemy]()
 
 #discard spawnItem(5, dungeon_map)
 
-dungeon.current_room = 5
+dungeon.current_room = 0
 
 var dungeon_map = dungeon.rooms[dungeon.current_room].room
 
@@ -145,23 +145,23 @@ while true:
                 room: Room
                 cords: (int, int)
 
-            if dungeon.atRoomEntry(x, y):
+            if dungeon.atRoomEntry(x+temp_x, y+temp_y):
                 # we get verbose
-                popup(&"Room Link: {dungeon.rooms[dungeon.current_room].connection}")
-                moveOn()
                 dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.to_id
                 room = dungeon.rooms[dungeon.current_room] 
                 cords = adjustCords(room, room.entry)
             else:
-                popup(&"Exiting Room Link: {dungeon.rooms[dungeon.current_room].connection}")
+                popup("exiting")
                 moveOn()
-                dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.from_id
+                dungeon.current_room = dungeon.rooms[dungeon.rooms[dungeon.current_room].connection.from_id].connection.to_id
                 room = dungeon.rooms[dungeon.current_room] 
                 cords = adjustCords(room, room.exit)
 
             x = cords[0]
             y = cords[1]
             dungeon_map = room.room
+
+            eraseScreen()
             
 
             # if entering a room, set dungeon map to new room
