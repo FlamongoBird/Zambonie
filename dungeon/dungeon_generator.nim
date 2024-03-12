@@ -3,7 +3,7 @@ import std/random
 randomize()
 
 const
-    ROOM_MIN = 3
+    ROOM_MIN = 8
     ROOM_MAX = 15
     MIN_DIST = 3
 
