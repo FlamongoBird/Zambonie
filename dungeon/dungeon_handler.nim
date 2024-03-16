@@ -15,10 +15,10 @@ proc atRoomEntry*(dungeon: Dungeon, x, y: int): bool =
         return true
     return false
 
-proc adjustCords*(room: Room, cords: (int, int)): (int, int) =
+proc adjustCords*(room: Room, cords: array[2, int]): array[2, int] =
     #[ Figures out if the door is on the top, bottom, left, right of the
     room and adjusts the cords one above, below, etc ]#
-    result = (cords[0], cords[1])
+    result = [cords[0], cords[1]]
 
     if result[0] == len(room.room[0])-1:
         result[0] -= 1

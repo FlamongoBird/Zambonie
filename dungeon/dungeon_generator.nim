@@ -13,13 +13,13 @@ type
         to_id*: int
 
     Room* = object
-        start*: (int, int)
+        start*: array[2, int]
         room*: seq[seq[int]]
         width*: int
         height*: int
         connection*: Connection
-        entry*: (int, int)
-        exit*: (int, int)
+        entry*: array[2, int]
+        exit*: array[2, int]
 
     Dungeon* = object
         dungeon*: seq[seq[int]]
@@ -86,17 +86,17 @@ proc roomOverlapping(dungeon: Dungeon, room: Room): bool =
     return false
 
 
-proc genRoomDoor(room: Room): (int, int) =
+proc genRoomDoor(room: Room): array[2, int] =
     var t = rand(3)
     case t:
         of 0:
-            result = (0, (rand(len(room.room)-3)+1))
+            result = [0, (rand(len(room.room)-3)+1)]
         of 1:
-            result = (len(room.room[0])-1, (rand(len(room.room)-3)+1))
+            result = [len(room.room[0])-1, (rand(len(room.room)-3)+1)]
         of 2:
-            result = ((rand(len(room.room[0])-3)+1), 0)
+            result = [(rand(len(room.room[0])-3)+1), 0]
         else:
-            result = ((rand(len(room.room[0])-3)+1), len(room.room)-1)
+            result = [(rand(len(room.room[0])-3)+1), len(room.room)-1]
 
 
 proc drawDoors(room: var Room) =
@@ -109,14 +109,14 @@ proc generateRoom(dungeon: var Dungeon) =
     var
         width = rand(ROOM_MAX-ROOM_MIN) + ROOM_MIN
         height = rand(ROOM_MAX-ROOM_MIN) + ROOM_MIN
-        start = (rand(dungeon.width - width), rand(dungeon.height - height))
+        start = [rand(dungeon.width - width), rand(dungeon.height - height)]
         room = Room(
             start: start,
             room: buildEmpty(width, height, 1),
             width: width,
             height: height,
-            entry: (0, 0),
-            exit: (0, 0),
+            entry: [0, 0],
+            exit: [0, 0],
             connection: Connection(
                 from_id: 0,
                 to_id: 0

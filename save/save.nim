@@ -1,7 +1,8 @@
 import std/json
+import std/jsonutils
 import "../player/player"
 import "../enemies/enemy"
-import "../dungeon/dungeon_object"
+import "../dungeon/dungeon_generator"
 from os import fileExists
 
 type
@@ -14,13 +15,13 @@ type
 
 
 proc saveGameData*(player: Player, dungeon: Dungeon, enemies: seq[Enemy], x, y: int) = 
-    var game_save = %* GameSave(
+    var game_save = GameSave(
         player: player,
         dungeon: dungeon,
         enemies: enemies,
         x: x,
         y: y
-    )
+    ).toJson()
     writeFile("./game_saves/save.json", $game_save)
 
 

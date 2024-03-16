@@ -1,11 +1,11 @@
-import dungeon/[dungeon_handler, dungeon_from_file, dungeon_generator]
+import dungeon/[dungeon_handler, dungeon_generator]
 import std/terminal
 import player/[player, player_attacks]
 import game/[die, title, treasure]
 import terminal/terminal
 import enemies/[enemy, enemy_movement]
 import std/strformat
-#import save/[save, restore]
+import save/[save, restore]
 
 
 # Does some stuff before the start of the game
@@ -15,11 +15,7 @@ eraseScreen()
 #showTitle()
 
 var
-    dungeon = generateDungeon(
-        width=100,
-        height=100,
-        max_rooms=4,
-    )
+    dungeon: Dungeon
     x: int
     y: int
     player_data: Player
@@ -28,7 +24,7 @@ var
     skibidi = false
     saved: int
 
-#[
+
 if saveExists():
     var game_data = restoreGameData()
     dungeon = game_data.dungeon
@@ -36,31 +32,30 @@ if saveExists():
     y = game_data.y
     player_data = game_data.player
     enemies = game_data.enemies
-]#
-#else:
-#dungeon_map = generateDungeon(10, 10)
 
-#dungeon = dungeonFromFile("./dungeon/hardcoded_maps/m1.txt")
-player_data = newPlayer()
-enemies = newSeq[Enemy]()
-
-#dungeon_map = dungeon.rooms[dungeon.current_room]
+else:
+    dungeon = generateDungeon(
+        width=100,
+        height=100,
+        max_rooms=10,
+    )
+    dungeon.current_room = 0
+    player_data = newPlayer()
+    var cords = findSpawn(dungeon.rooms[dungeon.current_room].room)
+    x = cords[0]
+    y = cords[1]
 
 #discard spawnItem(5, dungeon_map)
 
-dungeon.current_room = 0
-
-var lastRoom = 0
 
 var dungeon_map = dungeon.rooms[dungeon.current_room].room
 
-var cords = findSpawn(dungeon_map)
-x = cords[0]
-y = cords[1]
 
 while true:
     if skibidi:
         saved = dungeon_map[y][x]
+    
+    saveGameData(player_data, dungeon, enemies, x, y)
     
     dungeon_map[y][x] = 69
 
