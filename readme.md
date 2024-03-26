@@ -10,7 +10,7 @@ Run Compiled code
 
 `./main` :happy:
 
-`main.exe` ewww windows...
+`main.exe` ... also it doesn't work on windows rn
 
 
 ### Compile and Run
