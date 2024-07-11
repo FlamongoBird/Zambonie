@@ -3,7 +3,7 @@ import tables
 
 #[
     enemies just use greedy best first...
-    might switch to A* later
+    might switch to A* later for smarter enemies
 ]#
 
 
@@ -31,9 +31,9 @@ proc getNeighbors(graph: seq[seq[int]], node: (int, int)): seq[(int, int)] =
  
     return neighbors
 
+
 proc heuristic(a, b: (int, int)): int =
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
-
 
 proc recoverPath(path: Table[(int, int), (int, int)], current, start: (int, int)): seq[(int, int)] =
     var recovered = newSeq[(int, int)]()

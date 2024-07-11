@@ -26,7 +26,10 @@ proc saveGameData*(player: Player, dungeon: Dungeon, enemies: seq[Enemy], x, y: 
 
 
 proc saveExists*(): bool =
+    return false
+    #[
     if fileExists("./game_saves/save.json"):
         if readFile("./game_saves/save.json") != "":
             return true
     return false
+    ]#

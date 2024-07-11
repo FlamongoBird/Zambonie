@@ -76,7 +76,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                 else:
                     discard
             
-            if selected > len(in_range):
+            if selected >= len(in_range):
                 selected = 0
             elif selected < 0:
                 selected = len(in_range)-1
