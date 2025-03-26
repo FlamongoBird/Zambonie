@@ -17,8 +17,3 @@ Run Compiled code
 
 `nim c -r main.nim`
 
-
-
-# Crystal
-
-- Fix Ui
