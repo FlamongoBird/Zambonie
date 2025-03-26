@@ -15,7 +15,8 @@ proc `<`(a, b: Location): bool = a.priority < b.priority
 
 proc validNeighbor(x: int, y: int, graph: seq[seq[int]]): (int, int) =
     try:
-        if graph[y][x] == 0:
+        var key = graph[y][x]
+        if key == 0 or key == 7 or key == 8:
             return (x, y)
     except:
         return (-1, -1)
@@ -28,14 +29,15 @@ proc getNeighbors(graph: seq[seq[int]], node: (int, int)): seq[(int, int)] =
     neighbors.add(validNeighbor(node[0]-1, node[1], graph))
     neighbors.add(validNeighbor(node[0], node[1]+1, graph))
     neighbors.add(validNeighbor(node[0], node[1]-1, graph))
- 
+
     return neighbors
 
 
 proc heuristic(a, b: (int, int)): int =
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-proc recoverPath(path: Table[(int, int), (int, int)], current, start: (int, int)): seq[(int, int)] =
+proc recoverPath(path: Table[(int, int), (int, int)], current, start: (int,
+        int)): seq[(int, int)] =
     var recovered = newSeq[(int, int)]()
     recovered.add(current)
 
@@ -50,7 +52,8 @@ proc recoverPath(path: Table[(int, int), (int, int)], current, start: (int, int)
 
     return recovered
 
-proc findPathGreedy*(graph: seq[seq[int]], start: (int, int), goal: (int, int)): seq[(int, int)] =
+proc findPathGreedy*(graph: seq[seq[int]], start: (int, int), goal: (int,
+        int)): seq[(int, int)] =
     var queue: HeapQueue[Location]
     var visited = newSeq[(int, int)]()
     var path = initTable[(int, int), (int, int)]()

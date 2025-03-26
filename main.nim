@@ -179,10 +179,13 @@ while true:
             skibidi = true
         of 7:
             cont = true
-            skibidi = true
+            # just for now erase doors
+            # not that if you remove this enemies will still
+            # erase doors cause they just like that
+            #skibidi = true
         of 8:
             cont = true
-            skibidi = true
+            #skibidi = true
         else:
             skibidi = true
 
