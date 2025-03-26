@@ -1,11 +1,14 @@
 import std/random
+import "../dungeon/portedv"
 
 randomize()
 
+#[
 const
     ROOM_MIN = 8
     ROOM_MAX = 15
     MIN_DIST = 3
+]#
 
 type
     Connection* = object
@@ -23,10 +26,10 @@ type
 
     Dungeon* = object
         dungeon*: seq[seq[int]]
-        rooms*: seq[Room]
+        #rooms*: seq[Room]
         width*: int
         height*: int
-        current_room*: int = 0
+        #current_room*: int = 0
 
 
 const
@@ -34,7 +37,6 @@ const
         from_id: 0,
         to_id: 0
     )
-
 
 proc buildEmpty(width, height: int): seq[seq[int]] =
     var base: seq[seq[int]]
@@ -44,6 +46,7 @@ proc buildEmpty(width, height: int): seq[seq[int]] =
             row.add(0)
         base.add(row)
     return base
+#[
 
 proc buildEmpty(width, height, border: int): seq[seq[int]] =
     var base: seq[seq[int]]
@@ -75,7 +78,7 @@ proc overlaps(r1: Room, r2: Room): bool =
     #r1 left > r2 right
     if r1.start[0]-MIN_DIST > r2.start[0]+r2.width+MIN_DIST:
         return false
-    
+
     return true
 
 
@@ -122,7 +125,7 @@ proc generateRoom(dungeon: var Dungeon) =
                 to_id: 0
             )
         )
-    
+
     if not roomOverlapping(dungeon, room):
         room.drawDoors()
         dungeon.rooms.add(room)
@@ -132,6 +135,7 @@ proc drawRoom(dungeon: var Dungeon, room: Room) =
     for y in countup(room.start[1], room.start[1]+room.height):
         for x in countup(room.start[0], room.start[0]+room.width):
             dungeon.dungeon[y][x] = 0
+
 
 proc generateDungeon*(width, height, max_rooms: int): Dungeon =
     var
@@ -177,6 +181,53 @@ proc generateDungeon*(width, height, max_rooms: int): Dungeon =
             prev = index
 
     dungeon.rooms[^1].connection.from_id = prev
+
+
+    return dungeon
+]#
+
+proc generateDungeon*(width, height, max_rooms: int): Dungeon =
+    var d = newDungeon(width, height)
+    d.generate(max_rooms)
+
+
+    # Skibidi Toilet Activities
+    # aka I'm going to change the type from a BigD to a Dungeon
+
+    var dungeon = Dungeon(
+        dungeon: buildEmpty(100, 100),
+        width: 100,
+        height: 100,
+    )
+
+
+    for y in 0..<d.height:
+        for x in 0..<d.width:
+            var tile = d.getTile(x, y)
+
+            var newVal: int
+
+            case tile:
+            of Unused:
+                newVal = 0
+            of Floor:
+                newVal = 3
+            of Corridor:
+                newVal = 4
+            of Wall:
+                newVal = 1
+            of ClosedDoor:
+                newVal = 7
+            of OpenDoor:
+                newVal = 8
+            of UpStairs:
+                newVal = 9
+            of DownStairs:
+                newVal = 9
+            else:
+                newVal = 0
+
+            dungeon.dungeon[y][x] = newVal
 
 
     return dungeon

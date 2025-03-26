@@ -22,13 +22,14 @@ proc playerAttack*(player: var Player, enemy: var Enemy) =
     moveOn()
 
 
-proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemies: var seq[Enemy], x: int, y:int) =
+proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player,
+        enemies: var seq[Enemy], x: int, y: int) =
     # sequence of indexes of enemies... fyi
     var in_range = newSeq[int]()
     for i, e in enemies:
         if distanceToEnemy(x, y, e) <= player.weapon.r:
             in_range.add(i)
-    
+
     if in_range.len == 0:
         popup(color(NEUTRAL_FG) & "No enemies in range." & COLOR_RESET)
         moveOn()
@@ -40,7 +41,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
             # symbol plus 10, ie. un highlighted is 11-20 and highlighted
             # is 21-30
             dungeon[e.y][e.x] = enemySymbol(e) + 10
-        
+
         # highlight all squares in range
 
         var highlighted = newSeq[(int, int)]()
@@ -51,7 +52,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                     dungeon[y_r][x_r] = 3
                     highlighted.add((x_r, y_r))
 
-        
+
         helperText("H/L - Select Enemy | <space> - Attack | C - Cancel")
 
         var selected = 0
@@ -60,7 +61,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
             var s_e = enemies[in_range[selected]]
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
             dungeon[y][x] = 69
-            printDungeonMap(dungeon, playerStats(player))
+            printDungeonMap(dungeon, playerStats(player), x, y)
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+10
             var key = getch()
             case key:
@@ -75,7 +76,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
                     break
                 else:
                     discard
-            
+
             if selected >= len(in_range):
                 selected = 0
             elif selected < 0:
@@ -84,11 +85,11 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player, enemie
 
         for loc in highlighted:
             dungeon[loc[1]][loc[0]] = 0
-        
+
         eraseScreen()
 
-        printDungeonMap(dungeon, playerStats(player))
-        
+        printDungeonMap(dungeon, playerStats(player), x, y)
 
 
-    
+
+

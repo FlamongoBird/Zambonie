@@ -35,28 +35,29 @@ if saveExists():
 
 else:
     dungeon = generateDungeon(
-        width=100,
-        height=100,
-        max_rooms=10,
+        width = 100,
+        height = 100,
+        max_rooms = 100,
     )
-    dungeon.current_room = 0
+
+    #dungeon.current_room = 0
     player_data = newPlayer()
-    var cords = findSpawn(dungeon.rooms[dungeon.current_room].room)
+    var cords = findSpawn(dungeon.dungeon)
     x = cords[0]
     y = cords[1]
 
 #discard spawnItem(5, dungeon_map)
 
 
-var dungeon_map = dungeon.rooms[dungeon.current_room].room
+var dungeon_map = dungeon.dungeon
 
 
 while true:
     if skibidi:
         saved = dungeon_map[y][x]
-    
+
     saveGameData(player_data, dungeon, enemies, x, y)
-    
+
     dungeon_map[y][x] = 69
 
     # display enemy
@@ -64,9 +65,7 @@ while true:
         var loc = enemyLoc(e)
         dungeon_map[loc[1]][loc[0]] = enemySymbol(e)
 
-    printDungeonMap(dungeon_map, playerStats(player_data))
-    echo &"Current Room: {dungeon.current_room}"
-    echo dungeon.rooms[dungeon.current_room].connection
+    printDungeonMap(dungeon_map, playerStats(player_data), x, y)
 
     if skibidi:
         dungeon_map[y][x] = saved
@@ -84,7 +83,7 @@ while true:
 
     var temp_x = 0
     var temp_y = 0
-    
+
     case keypress:
         of 'e':
             break
@@ -119,7 +118,7 @@ while true:
         else:
             # TODO: actually do something here
             continue
-    
+
     var spot = dungeon_map[temp_y+y][temp_x+x]
 
     var cont = false
@@ -139,8 +138,10 @@ while true:
             lootEnemy(player_data, generateGoblin())
             cont = true
             discard
-        of 10: 
-            var room = dungeon.rooms[dungeon.current_room] 
+        of 10:
+            discard
+        #[
+            var room = dungeon.rooms[dungeon.current_room]
             dungeon.current_room = room.connection.to_id
             room = dungeon.rooms[dungeon.current_room]
             var cords = adjustCords(room, room.exit)
@@ -149,9 +150,13 @@ while true:
             y = cords[1]
             dungeon_map = room.room
             eraseScreen()
+]#
         of 9:
-            dungeon.current_room = dungeon.rooms[dungeon.current_room].connection.from_id
-            var room = dungeon.rooms[dungeon.current_room] 
+            discard
+        #[
+            dungeon.current_room = dungeon.rooms[
+                    dungeon.current_room].connection.from_id
+            var room = dungeon.rooms[dungeon.current_room]
             var cords = adjustCords(room, room.entry)
 
             x = cords[0]
@@ -159,7 +164,7 @@ while true:
             dungeon_map = room.room
 
             eraseScreen()
-            
+]#
 
             # if entering a room, set dungeon map to new room
             # and then remove the drawn connection
@@ -172,6 +177,12 @@ while true:
             # walk but don't erase
             cont = true
             skibidi = true
+        of 7:
+            cont = true
+            skibidi = true
+        of 8:
+            cont = true
+            skibidi = true
         else:
             skibidi = true
 
@@ -179,7 +190,7 @@ while true:
     if cont:
         x += temp_x
         y += temp_y
-    
+
 
     for i, e in enemies:
         if enemyInRange(e, x, y):
