@@ -1,5 +1,7 @@
 import "../terminal/terminal"
 import "../colors/colors"
+import "../util_functions/util_functions"
+import "../player/player"
 import sequtils
 import std/strformat
 import std/random
@@ -67,9 +69,8 @@ proc colorString(str: string, fg: array[3, int], bg: array[3, int]): string =
 
 
 
-proc displayMap(dungeon_map: seq[seq[int]], stats: string) =
+proc displayMap(dungeon_map: seq[seq[int]], player: Player) =
     var final = newSeq[string](0)
-    final.add(stats)
     final.add(" ")
     for y, row in dungeon_map:
         var line = ""
@@ -114,6 +115,15 @@ proc displayMap(dungeon_map: seq[seq[int]], stats: string) =
                 of 11:
                     # Goblin
                     output = " G "
+                of 12:
+                    # Fiend
+                    output = " F "
+                of 13:
+                    # Goul
+                    output = colorString(" G ", [50, 50, 50], [100, 100, 100])
+                of 14:
+                    # monkey
+                    output = colorString(" M ", [245, 209, 66], [88, 56, 40])
                 # 21-30 are monsters highlighed
                 of 21:
                     # Goblin
@@ -126,7 +136,9 @@ proc displayMap(dungeon_map: seq[seq[int]], stats: string) =
                     output = " ? "
             line = line & output
         final.add(line)
-    display(final)
+
+    var real_final = joinSequences(final, bigStats(player), "      ")
+    display(real_final)
 
 proc hideOtherRooms(dungeon_map: var seq[seq[int]]) =
     # hide rooms that the player is not in
@@ -177,7 +189,7 @@ proc hideOtherRooms(dungeon_map: var seq[seq[int]]) =
 
 
 
-proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string, globalx,
+proc printDungeonMap*(dungeon_map: seq[seq[int]], player: Player, globalx,
         globaly: int) =
     var
         newMap: seq[seq[int]]
@@ -197,4 +209,4 @@ proc printDungeonMap*(dungeon_map: seq[seq[int]], stats: string, globalx,
 
     hideOtherRooms(newMap)
 
-    displayMap(newMap, stats)
+    displayMap(newMap, player)

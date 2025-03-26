@@ -61,7 +61,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player,
             var s_e = enemies[in_range[selected]]
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+20
             dungeon[y][x] = 69
-            printDungeonMap(dungeon, playerStats(player), x, y)
+            printDungeonMap(dungeon, player, x, y)
             dungeon[s_e.y][s_e.x] = enemySymbol(s_e)+10
             var key = getch()
             case key:
@@ -88,7 +88,7 @@ proc playerAttemptAttack*(dungeon: var seq[seq[int]], player: var Player,
 
         eraseScreen()
 
-        printDungeonMap(dungeon, playerStats(player), x, y)
+        printDungeonMap(dungeon, player, x, y)
 
 
 

@@ -65,7 +65,7 @@ while true:
         var loc = enemyLoc(e)
         dungeon_map[loc[1]][loc[0]] = enemySymbol(e)
 
-    printDungeonMap(dungeon_map, playerStats(player_data), x, y)
+    printDungeonMap(dungeon_map, player_data, x, y)
 
     if skibidi:
         dungeon_map[y][x] = saved
@@ -110,6 +110,9 @@ while true:
                 enemies.del(dead)
         of 'x':
             enemies.add(generateGoblin(dungeon_map))
+            enemies.add(generateFiend(dungeon_map))
+            enemies.add(generateGhoul(dungeon_map))
+            enemies.add(generateMonkey(dungeon_map))
         of 't':
             #saveGameData(player_data, dungeon, enemies, x, y)
             discard
@@ -135,7 +138,7 @@ while true:
             cont = true
         of 21:
             # dead Goblin
-            lootEnemy(player_data, generateGoblin())
+            #lootEnemy(player_data, generateGoblin())
             cont = true
             discard
         of 10:

@@ -81,9 +81,52 @@ proc generateGoblin*(dungeon: var seq[seq[int]]): Enemy =
         symbol: 11,
         x: loc[0],
         y: loc[1],
+        r: 10,
+    )
+
+proc generateFiend*(dungeon: var seq[seq[int]]): Enemy =
+    var loc = findSpawn(dungeon)
+    return Enemy(
+        name: "Fiend",
+        hp: 40,
+        weapon: getWeapon("sword"),
+        armor: getArmor("leather"),
+        symbol: 12,
+        x: loc[0],
+        y: loc[1],
+        r: 20,
+    )
+
+proc generateGhoul*(dungeon: var seq[seq[int]]): Enemy =
+    var loc = findSpawn(dungeon)
+    return Enemy(
+        name: "Ghoul",
+        hp: 100,
+        weapon: getWeapon("sword"),
+        armor: getArmor("leather"),
+        symbol: 13,
+        x: loc[0],
+        y: loc[1],
+        r: 30,
+    )
+
+
+proc generateMonkey*(dungeon: var seq[seq[int]]): Enemy =
+    var loc = findSpawn(dungeon)
+    return Enemy(
+        name: "Monkey",
+        hp: 5,
+        weapon: getWeapon("sword"),
+        armor: getArmor("leather"),
+        symbol: 14,
+        x: loc[0],
+        y: loc[1],
         r: 5,
     )
+
+
 proc generateGoblin*(): Enemy =
+    ## this is neccessary when looting enemies
     return Enemy(
         name: "Goblin",
         hp: 15,
@@ -92,7 +135,7 @@ proc generateGoblin*(): Enemy =
         symbol: 11,
         x: 0,
         y: 0,
-        r: 5,
+        r: 50,
     )
 
 proc enemySymbol*(enemy: Enemy): int =

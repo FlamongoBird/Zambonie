@@ -22,7 +22,7 @@ proc newPlayer*(): Player =
         hp: 20,
         hp_max: 20,
         inventory: newSeq[int](0),
-        armor: getArmor("leather"),
+        armor: getArmor("player_armor"),
         weapon: getWeapon("player_weapon"),
     )
     return p
@@ -49,7 +49,7 @@ proc givePlayerTreasure*(player: var Player, treasure: int) =
 proc hurtPlayer*(player: var Player, dmg: int) =
     player.hp -= dmg
 
-proc playerDead*(player: Player): bool = 
+proc playerDead*(player: Player): bool =
     if player.hp <= 0:
         return true
     return false
@@ -58,3 +58,23 @@ proc playerStats*(player: Player): string =
     var bar = buildBar(player.hp / player.hp_max, 15)
     return fmt"HP: {bar} [{player.hp}/{player.hp_max}]"
 
+proc bigStats*(player: Player): seq[string] =
+    var output: seq[string]
+
+    output.add("")
+    output.add("")
+    output.add("")
+
+    output.add(playerStats(player))
+
+    output.add("")
+
+    output.add(fmt"ARMOR: {buildBar(player.armor.armor/20, 15)}")
+    output.add(fmt"ARMOR DEFLECT: {player.armor.deflect}%")
+
+    output.add("")
+
+    output.add(fmt"WEAPON DAMAGE: {buildBar(((player.weapon.dmg_min+player.weapon.dmg_max) / 2) / 100, 15)}")
+    output.add(fmt"WEAPON RANGE: {player.weapon.r}")
+
+    return output
